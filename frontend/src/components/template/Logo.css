@@ -5,6 +5,10 @@ aside.logo {
     align-items: center;
 }
 
+aside.logo h1 {
+    color: #FFF;
+}
+
 aside.logo img {
     padding: 0px 15px;
     width: 100%;
