@@ -3,8 +3,8 @@ import Main from '../template/Main'
 
 const headerProps = {
     icon: 'users',
-    title: 'Membros',
-    subtitle: 'Lista de Membros'
+    title: 'Lista de Membros',
+    subtitle: 'Membros / Lista'
 }
 
 const initialState = {
@@ -65,6 +65,20 @@ export default class UserCrud extends Component {
     //     )
     // }
 
+    renderTopButtons() {
+        return (
+            <div className="text-right">
+                <button className="btn btn-primary mr-1">
+                    <i className="fa fa-plus mr-3"></i>Novo membro
+                </button>
+                <button className="btn btn-dark ml-1">
+                    Ações
+                    <i class="fa fa-caret-down ml-3"></i>
+                </button>
+            </div>
+        )
+    }
+
     renderTable() {
         return (
             <table className="table mt-4">
@@ -75,6 +89,7 @@ export default class UserCrud extends Component {
                         <th>Mensalidade</th>
                         <th>Status</th>
                         <th>Última mensalidade</th>
+                        <th>Ações</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -109,6 +124,7 @@ export default class UserCrud extends Component {
     render() {
         return (
             <Main {...headerProps}>
+                {this.renderTopButtons()}
                 {this.renderTable()}
             </Main>
         )
