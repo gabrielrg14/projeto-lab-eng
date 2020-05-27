@@ -5,6 +5,8 @@
   "dependencies": {
     "axios": "^0.19.2",
     "bootstrap": "^4.5.0",
+    "popper.js": "^1.14.3",
+    "jquery": "^3.5.1",
     "font-awesome": "4.7.0",
     "react": "^16.4.0",
     "react-dom": "^16.13.1",

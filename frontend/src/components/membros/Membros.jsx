@@ -68,13 +68,53 @@ export default class UserCrud extends Component {
     renderTopButtons() {
         return (
             <div className="text-right">
-                <button className="btn btn-primary mr-1">
-                    <i className="fa fa-plus mr-3"></i>Novo membro
+                <button type="button" className="btn btn-primary mr-1" data-toggle="modal" data-target="#inserirNovoMembro">
+                    <i className="fa fa-plus mr-3"></i>
+                    Novo membro
                 </button>
                 <button className="btn btn-dark ml-1">
                     Ações
                     <i class="fa fa-caret-down ml-3"></i>
                 </button>
+
+                {/* Início Modal novo Membro */}
+                <div class="modal fade" id="inserirNovoMembro" tabindex="-1" role="dialog" aria-labelledby="ModalNovoMembro" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="ModalNovoMembro">Novo membro</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div className="form">
+                                    <div className="row">
+                                        <div className="col-12 col-md-6">
+                                            <div className="form-group">
+                                                <label>Nome</label>
+                                                <input type="text" className="form-control" name="name" placeholder="Nome do membro" />
+                                            </div>
+                                        </div>
+
+                                        <div className="col-12 col-md-6">
+                                            <div className="form-group">
+                                                <label>CPF</label>
+                                                <input type="text" className="form-control" name="cpf" placeholder="CPF do membro" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                <button type="button" class="btn btn-primary">Salvar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {/* Fim Modal novo Membro */}
             </div>
         )
     }
@@ -120,7 +160,7 @@ export default class UserCrud extends Component {
             )
         });
     }
-    
+
     render() {
         return (
             <Main {...headerProps}>
