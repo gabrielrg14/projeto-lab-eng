@@ -34,7 +34,7 @@ export default class UserCrud extends Component {
                     <i class="fa fa-caret-down ml-3"></i>
                 </button>
 
-                {/* Modal Modal Novo Material */}
+                {/*Inicio Modal Novo Material */}
                 <div class="modal fade" id="inserirNovoMaterial" tabindex="-1" role="dialog" aria-labelledby="ModalNovoMaterial" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
