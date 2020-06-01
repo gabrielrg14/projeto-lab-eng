@@ -86,3 +86,8 @@ footer.footer {
             "footer";
     }
 }
+
+.campo-form-modal {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}

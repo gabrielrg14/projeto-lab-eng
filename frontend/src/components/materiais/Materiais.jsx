@@ -34,12 +34,12 @@ export default class UserCrud extends Component {
                     <i class="fa fa-caret-down ml-3"></i>
                 </button>
 
-                {/*Inicio Modal Novo Material */}
+                {/* Inicio Modal Novo Material */}
                 <div class="modal fade" id="inserirNovoMaterial" tabindex="-1" role="dialog" aria-labelledby="ModalNovoMaterial" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="ModalNovoMaterial">Novo material</h5>
+                                <h5 class="modal-title" id="ModalNovoMaterial"><i className="fa fa-plus mr-3"></i> Novo material</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -47,14 +47,14 @@ export default class UserCrud extends Component {
                             <div class="modal-body">
                                 <div className="form">
                                     <div className="row">
-                                        <div className="col-12 col-md-6">
+                                        <div className="col-12 col-md-6 text-left campo-form-modal">
                                             <div className="form-group">
                                                 <label>Nome</label>
                                                 <input type="text" className="form-control" name="name" placeholder="Nome do material" />
                                             </div>
                                         </div>
 
-                                        <div className="col-12 col-md-6">
+                                        <div className="col-12 col-md-6 text-left campo-form-modal">
                                             <div className="form-group">
                                                 <label>Unidades</label>
                                                 <input type="text" className="form-control" name="unidades" placeholder="Unidades do material" />
@@ -78,7 +78,7 @@ export default class UserCrud extends Component {
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="ModalNovaCompra">Nova Compra de Material</h5>
+                                <h5 class="modal-title" id="ModalNovaCompra"><i className="fa fa-plus mr-3"></i> Nova Compra de Material</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -86,17 +86,42 @@ export default class UserCrud extends Component {
                             <div class="modal-body">
                                 <div className="form">
                                     <div className="row">
-                                        <div className="col-12 col-md-6">
+                                        <div className="col-12 col-md-6 text-left campo-form-modal">
                                             <div className="form-group">
                                                 <label>Nome do material</label>
                                                 <input type="text" className="form-control" name="nome-material-compra" placeholder="Nome do material" />
                                             </div>
                                         </div>
 
-                                        <div className="col-12 col-md-6">
+                                        <div className="col-12 col-md-6 text-left campo-form-modal">
                                             <div className="form-group">
                                                 <label>Unidades</label>
                                                 <input type="text" className="form-control" name="unidades" placeholder="Unidades do material" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="row">
+                                        <div className="col-12 col-md-6 text-left campo-form-modal">
+                                            <div className="form-group">
+                                                <label>Fornecedor</label>
+                                                <input type="text" className="form-control" name="fornecedor" placeholder="Fornecedor do material" />
+                                            </div>
+                                        </div>
+
+                                        <div className="col-12 col-md-6 text-left campo-form-modal">
+                                            <div className="form-group">
+                                                <label>Data da compra</label>
+                                                <input type="date" className="form-control" name="data-compra" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="row">
+                                        <div className="col-12 col-md-6 offset-md-3 text-left text-md-center campo-form-modal">
+                                            <div className="form-group">
+                                                <label>Valor da compra</label>
+                                                <input type="text" className="form-control" name="valor-compra" placeholder="R$ 0,00" />
                                             </div>
                                         </div>
                                     </div>
@@ -141,13 +166,85 @@ export default class UserCrud extends Component {
                     <td>{material.unidades}</td>
                     <td>{material.ultimo_fornecedor}</td>
                     <td>
-                        <button className="btn btn-warning">
+                        <button className="btn btn-warning" data-toggle="modal" data-target="#editarMaterial">
                             <i className="fa fa-pencil"></i>
                         </button>
-                        <button className="btn btn-danger ml-1">
+
+                        <button className="btn btn-danger ml-1" data-toggle="modal" data-target="#excluirMaterial">
                             <i className="fa fa-trash"></i>
                         </button>
                     </td>
+
+                    {/* Início Modal editar Material */}
+                    <div class="modal fade" id="editarMaterial" tabindex="-1" role="dialog" aria-labelledby="ModalEditarMaterial" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="ModalEditarMaterial"><i className="fa fa-pencil"></i> Editar material</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div className="form">
+                                        <div className="row">
+                                            <div className="col-12 col-md-6 text-left campo-form-modal">
+                                                <div className="form-group">
+                                                    <label>Nome</label>
+                                                    <input type="text" className="form-control" name="nome" value={material.nome} placeholder="Nome do grupo" />
+                                                </div>
+                                            </div>
+
+                                            <div className="col-12 col-md-6 text-left campo-form-modal">
+                                                <div className="form-group">
+                                                    <label>Unidades</label>
+                                                    <input type="text" className="form-control" name="unidades" value={material.unidades} placeholder="Unidades do material" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="row">
+                                        <div className="col-12 col-md-8 offset-md-2 text-left text-md-center campo-form-modal">
+                                            <div className="form-group">
+                                                <label>Último Fornecedor comprado</label>
+                                                <input type="text" className="form-control" name="ultimo-fornecedor" placeholder="Último fornecedor comprado" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                    <button type="button" class="btn btn-primary">Salvar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {/* Fim Modal editar Material */}
+
+                    {/* Início Modal excluir Material */}
+                    <div class="modal fade" id="excluirMaterial" tabindex="-1" role="dialog" aria-labelledby="ModalExcluirMaterial" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="ModalExcluirMaterial"><i className="fa fa-trash"></i> Excluir material</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    Tem certeza que deseja excluir o material {material.nome}?
+                                </div>
+
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                    <button type="button" class="btn btn-danger">Sim</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {/* Fim Modal excluir Material */}
                 </tr>
             )
         });
