@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import Main from '../template/Main'
-import "./Membros.css"
 
 const headerProps = {
     icon: 'users',
@@ -45,14 +44,14 @@ export default class UserCrud extends Component {
                             <div class="modal-body">
                                 <div className="form">
                                     <div className="row">
-                                        <div className="col-12 col-md-6 text-left campo-form">
+                                        <div className="col-12 col-md-6 text-left campo-form-modal">
                                             <div className="form-group">
                                                 <label>Nome</label>
                                                 <input type="text" className="form-control" name="name" placeholder="Nome do membro" />
                                             </div>
                                         </div>
 
-                                        <div className="col-12 col-md-6 text-left campo-form">
+                                        <div className="col-12 col-md-6 text-left campo-form-modal">
                                             <div className="form-group">
                                                 <label>CPF</label>
                                                 <input type="text" className="form-control" name="cpf" placeholder="CPF do membro" />
@@ -61,14 +60,14 @@ export default class UserCrud extends Component {
                                     </div>
 
                                     <div className="row">
-                                        <div className="col-12 col-md-6 text-left campo-form">
+                                        <div className="col-12 col-md-6 text-left campo-form-modal">
                                             <div className="form-group">
                                                 <label>Celular</label>
                                                 <input type="text" className="form-control" name="celular" placeholder="Celular do membro" />
                                             </div>
                                         </div>
 
-                                        <div className="col-12 col-md-6 text-left campo-form">
+                                        <div className="col-12 col-md-6 text-left campo-form-modal">
                                             <div className="form-group">
                                                 <label>Celular do Responsável</label>
                                                 <input type="text" className="form-control" name="celular-resp" placeholder="Celular do responsável" />
@@ -77,17 +76,31 @@ export default class UserCrud extends Component {
                                     </div>
 
                                     <div className="row">
-                                        <div className="col-12 col-md-6 text-left campo-form">
+                                        <div className="col-12 col-md-6 text-left campo-form-modal">
                                             <div className="form-group">
                                                 <label>Data de Nascimento</label>
                                                 <input type="date" className="form-control" name="data-nascimento" />
                                             </div>
                                         </div>
 
-                                        <div className="col-12 col-md-6 text-left campo-form">
+                                        <div className="col-12 col-md-6 text-left campo-form-modal">
                                             <div className="form-group">
                                                 <label>Data de Cadastro</label>
                                                 <input type="date" className="form-control" name="data-cadastro" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="row">
+                                        <div className="col-12 col-md-6 offset-md-3 text-left text-md-center campo-form-modal">
+                                            <div className="form-group">
+                                                <label for="status">Grupo</label>
+                                                <select className="form-control" id="status">
+                                                    <option selected disabled>Selecione...</option>
+                                                    <option value="grupo-x">Grupo X</option>
+                                                    <option value="grupo-y">Grupo Y</option>
+                                                    <option value="grupo-z">Grupo Z</option>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
@@ -153,14 +166,14 @@ export default class UserCrud extends Component {
                                     <div class="modal-body">
                                         <div className="form">
                                             <div className="row">
-                                                <div className="col-12 col-md-6 text-left campo-form">
+                                                <div className="col-12 col-md-6 text-left campo-form-modal">
                                                     <div className="form-group">
                                                         <label>Nome</label>
                                                         <input type="text" className="form-control" name="name" value={membro.nome} placeholder="Nome do membro" />
                                                     </div>
                                                 </div>
 
-                                                <div className="col-12 col-md-6 text-left campo-form">
+                                                <div className="col-12 col-md-6 text-left campo-form-modal">
                                                     <div className="form-group">
                                                         <label>CPF</label>
                                                         <input type="text" className="form-control" name="cpf" placeholder="CPF do membro" />
@@ -169,14 +182,14 @@ export default class UserCrud extends Component {
                                             </div>
 
                                             <div className="row">
-                                                <div className="col-12 col-md-6 text-left campo-form">
+                                                <div className="col-12 col-md-6 text-left campo-form-modal">
                                                     <div className="form-group">
                                                         <label>Celular</label>
                                                         <input type="text" className="form-control" name="celular" placeholder="Celular do membro" />
                                                     </div>
                                                 </div>
 
-                                                <div className="col-12 col-md-6 text-left campo-form">
+                                                <div className="col-12 col-md-6 text-left campo-form-modal">
                                                     <div className="form-group">
                                                         <label>Celular do Responsável</label>
                                                         <input type="text" className="form-control" name="celular-resp" placeholder="Celular do responsável" />
@@ -185,14 +198,14 @@ export default class UserCrud extends Component {
                                             </div>
 
                                             <div className="row">
-                                                <div className="col-12 col-md-6 text-left campo-form">
+                                                <div className="col-12 col-md-6 text-left campo-form-modal">
                                                     <div className="form-group">
                                                         <label>Data de Nascimento</label>
                                                         <input type="date" className="form-control" name="data-nascimento" />
                                                     </div>
                                                 </div>
 
-                                                <div className="col-12 col-md-6 text-left campo-form">
+                                                <div className="col-12 col-md-6 text-left campo-form-modal">
                                                     <div className="form-group">
                                                         <label>Data de Cadastro</label>
                                                         <input type="date" className="form-control" name="data-cadastro" />
@@ -201,7 +214,19 @@ export default class UserCrud extends Component {
                                             </div>
 
                                             <div className="row">
-                                                <div className="col-12 col-md-6 offset-md-3 text-left text-md-center campo-form">
+                                                <div className="col-12 col-md-6 campo-form-modal">
+                                                    <div className="form-group">
+                                                        <label>Grupo</label>
+                                                        <select className="form-control">
+                                                            <option selected disabled>Selecione...</option>
+                                                            <option value="grupo-x">Grupo X</option>
+                                                            <option value="grupo-x">Grupo Y</option>
+                                                            <option value="grupo-x">Grupo Z</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div className="col-12 col-md-6 campo-form-modal">
                                                     <div className="form-group">
                                                         <label for="status">Status</label>
                                                         <select className="form-control" id="status">

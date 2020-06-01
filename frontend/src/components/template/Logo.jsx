@@ -7,6 +7,6 @@ export default props =>
     <aside className="logo">
         <Link to="/" className="logo">
             {/* <img src={logo} alt="logo" /> */}
-            <h1>Portal</h1>
+            <h1><i className="fa fa-home"></i> Início</h1>
         </Link>
     </aside>
