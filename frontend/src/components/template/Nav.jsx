@@ -9,6 +9,10 @@ export default props =>
                 <i className="fa fa-users"></i> Membros
             </Link>
 
+            <Link to="/administradores">
+                <i className="fa fa-user-plus"></i> Administradores
+            </Link>
+
             <Link to="/grupos">
                 <i className="fa fa-pencil"></i> Grupos
             </Link>

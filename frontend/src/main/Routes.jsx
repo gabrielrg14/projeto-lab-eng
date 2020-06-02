@@ -3,6 +3,7 @@ import { Switch, Route, Redirect } from 'react-router'
 
 import Home from '../components/home/Home'
 import Membros from '../components/membros/Membros'
+import Administradores from '../components/administradores/Administradores'
 import Grupos from '../components/grupos/Grupos'
 import Materiais from '../components/materiais/Materiais'
 
@@ -10,6 +11,7 @@ export default props =>
     <Switch>
         <Route exact path='/' component={Home} />
         <Route path='/membros' component={Membros} />
+        <Route path='/administradores' component={Administradores} />
         <Route path='/grupos' component={Grupos} />
         <Route path='/materiais' component={Materiais} />
         <Redirect from='*' to='/' />
