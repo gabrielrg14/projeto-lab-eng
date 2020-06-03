@@ -87,7 +87,17 @@ footer.footer {
     }
 }
 
+
+/* INÍCIO CSS PARA APLICAR EM TODOS COMPONENTES */
+.table th {
+    border-top: 1px solid #dee2e6;
+}
+.table td {
+    border-bottom: 1px solid #dee2e6;
+}
+
 .campo-form-modal {
     padding-top: 10px;
     padding-bottom: 10px;
 }
+/* FIM CSS PARA APLICAR EM TODOS COMPONENTES */
