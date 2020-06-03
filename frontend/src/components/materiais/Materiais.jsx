@@ -26,25 +26,25 @@ export default class UserCrud extends Component {
                     <i className="fa fa-plus mr-3"></i>Novo material
                 </button>
                 <button className="btn btn-dark ml-1 mr-1" data-toggle="modal" data-target="#inserirNovaCompra">
-                    <i class="fa fa-plus mr-3"></i>
+                    <i className="fa fa-plus mr-3"></i>
                     Nova compra
                 </button>
                 <button className="btn btn-dark ml-1">
                     Ações
-                    <i class="fa fa-caret-down ml-3"></i>
+                    <i className="fa fa-caret-down ml-3"></i>
                 </button>
 
                 {/* Inicio Modal Novo Material */}
-                <div class="modal fade" id="inserirNovoMaterial" tabindex="-1" role="dialog" aria-labelledby="ModalNovoMaterial" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="ModalNovoMaterial"><i className="fa fa-plus mr-3"></i> Novo material</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                <div className="modal fade" id="inserirNovoMaterial" tabindex="-1" role="dialog" aria-labelledby="ModalNovoMaterial" aria-hidden="true">
+                    <div className="modal-dialog modal-dialog-centered" role="document">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <h5 className="modal-title" id="ModalNovoMaterial"><i className="fa fa-plus mr-3"></i> Novo material</h5>
+                                <button type="button" className="close" data-dismiss="modal" aria-label="Fechar">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <div class="modal-body">
+                            <div className="modal-body">
                                 <div className="form">
                                     <div className="row">
                                         <div className="col-12 col-md-6 text-left campo-form-modal">
@@ -64,9 +64,9 @@ export default class UserCrud extends Component {
                                 </div>
                             </div>
 
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                                <button type="button" class="btn btn-primary">Salvar</button>
+                            <div className="modal-footer">
+                                <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                <button type="button" className="btn btn-primary">Salvar</button>
                             </div>
                         </div>
                     </div>
@@ -74,16 +74,16 @@ export default class UserCrud extends Component {
                 {/* Fim Modal Novo Material */}
 
                 {/* Início Modal Nova Compra de Material */}
-                <div class="modal fade" id="inserirNovaCompra" tabindex="-1" role="dialog" aria-labelledby="ModalNovaCompra" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="ModalNovaCompra"><i className="fa fa-plus mr-3"></i> Nova Compra de Material</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                <div className="modal fade" id="inserirNovaCompra" tabindex="-1" role="dialog" aria-labelledby="ModalNovaCompra" aria-hidden="true">
+                    <div className="modal-dialog modal-dialog-centered" role="document">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <h5 className="modal-title" id="ModalNovaCompra"><i className="fa fa-plus mr-3"></i> Nova Compra de Material</h5>
+                                <button type="button" className="close" data-dismiss="modal" aria-label="Fechar">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <div class="modal-body">
+                            <div className="modal-body">
                                 <div className="form">
                                     <div className="row">
                                         <div className="col-12 col-md-6 text-left campo-form-modal">
@@ -128,9 +128,9 @@ export default class UserCrud extends Component {
                                 </div>
                             </div>
 
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                                <button type="button" class="btn btn-primary">Salvar</button>
+                            <div className="modal-footer">
+                                <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                <button type="button" className="btn btn-primary">Salvar</button>
                             </div>
                         </div>
                     </div>
@@ -142,7 +142,7 @@ export default class UserCrud extends Component {
 
     renderTable() {
         return (
-            <table className="table mt-4">
+            <table className="table table-hover mt-4 text-center">
                 <thead>
                     <tr>
                         <th>Nome</th>
@@ -176,16 +176,16 @@ export default class UserCrud extends Component {
                     </td>
 
                     {/* Início Modal editar Material */}
-                    <div class="modal fade" id="editarMaterial" tabindex="-1" role="dialog" aria-labelledby="ModalEditarMaterial" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="ModalEditarMaterial"><i className="fa fa-pencil"></i> Editar material</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                    <div className="modal fade" id="editarMaterial" tabindex="-1" role="dialog" aria-labelledby="ModalEditarMaterial" aria-hidden="true">
+                        <div className="modal-dialog modal-dialog-centered" role="document">
+                            <div className="modal-content">
+                                <div className="modal-header">
+                                    <h5 className="modal-title" id="ModalEditarMaterial"><i className="fa fa-pencil"></i> Editar material</h5>
+                                    <button type="button" className="close" data-dismiss="modal" aria-label="Fechar">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
-                                <div class="modal-body">
+                                <div className="modal-body">
                                     <div className="form">
                                         <div className="row">
                                             <div className="col-12 col-md-6 text-left campo-form-modal">
@@ -214,9 +214,9 @@ export default class UserCrud extends Component {
                                     </div>
                                 </div>
 
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                                    <button type="button" class="btn btn-primary">Salvar</button>
+                                <div className="modal-footer">
+                                    <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                    <button type="button" className="btn btn-primary">Salvar</button>
                                 </div>
                             </div>
                         </div>
@@ -224,22 +224,22 @@ export default class UserCrud extends Component {
                     {/* Fim Modal editar Material */}
 
                     {/* Início Modal excluir Material */}
-                    <div class="modal fade" id="excluirMaterial" tabindex="-1" role="dialog" aria-labelledby="ModalExcluirMaterial" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="ModalExcluirMaterial"><i className="fa fa-trash"></i> Excluir material</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                    <div className="modal fade" id="excluirMaterial" tabindex="-1" role="dialog" aria-labelledby="ModalExcluirMaterial" aria-hidden="true">
+                        <div className="modal-dialog modal-dialog-centered" role="document">
+                            <div className="modal-content">
+                                <div className="modal-header">
+                                    <h5 className="modal-title" id="ModalExcluirMaterial"><i className="fa fa-trash"></i> Excluir material</h5>
+                                    <button type="button" className="close" data-dismiss="modal" aria-label="Fechar">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
-                                <div class="modal-body">
+                                <div className="modal-body">
                                     Tem certeza que deseja excluir o material {material.nome}?
                                 </div>
 
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                                    <button type="button" class="btn btn-danger">Sim</button>
+                                <div className="modal-footer">
+                                    <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                    <button type="button" className="btn btn-danger">Sim</button>
                                 </div>
                             </div>
                         </div>
@@ -250,11 +250,28 @@ export default class UserCrud extends Component {
         });
     }
 
+    renderBottomButtons() {
+        return (
+            <div className="paginacao-lista">
+                <nav>
+                    <ul className="pagination justify-content-end">
+                        <li className="page-item disabled"><a className="page-link" href="#">&laquo;</a></li>
+                        <li className="page-item active" ><a className="page-link" href="#">1</a></li>
+                        <li className="page-item"><a className="page-link" href="#">2</a></li>
+                        <li className="page-item"><a className="page-link" href="#">3</a></li>
+                        <li className="page-item disabled"><a className="page-link" href="#">&raquo;</a></li>
+                    </ul>
+                </nav>
+            </div>
+        )
+    }
+
     render() {
         return (
             <Main {...headerProps}>
                 {this.renderTopButtons()}
                 {this.renderTable()}
+                {this.renderBottomButtons()}
             </Main>
         )
     }
