@@ -15,7 +15,7 @@ const initialState = {
     ],
 }
 
-export default class UserCrud extends Component {
+export default class Materiais extends Component {
 
     state = { ...initialState }
 

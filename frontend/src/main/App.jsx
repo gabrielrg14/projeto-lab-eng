@@ -5,16 +5,12 @@ import './App.css'
 import React from 'react'
 import { BrowserRouter } from 'react-router-dom'
 
-// import Login from '../components/login/Login'
 import Logo from '../components/template/Logo'
 import Nav from '../components/template/Nav'
 import Routes from './Routes'
 
 export default props =>
     <BrowserRouter>
-        {/* <div className="login">
-            <Login />
-        </div> */}
         <div className="app">
             <Logo />
             <Nav />
