@@ -35,3 +35,25 @@ aside.menu-area {
         justify-content: space-around;
     }
 }
+
+.menu a .fa {
+    margin-right: 10px;
+}
+
+.menu a .fa.fa-caret-down,
+.menu a .fa.fa-caret-up {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.menu .dropdown {
+    display: none;
+}
+
+.menu .dropdown.open {
+    display: block;
+}
+
+.menu .dropdown a {
+    padding-left: 45px;
+}

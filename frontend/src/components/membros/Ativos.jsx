@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 import Main from '../template/Main'
 
 const headerProps = {
-    icon: 'users',
-    title: 'Lista de Membros',
-    subtitle: 'Membros / Lista'
+    icon: 'user',
+    title: 'Lista de Membros Ativos',
+    subtitle: 'Membros Ativos/ Lista'
 }
 
 const initialState = {
@@ -15,7 +15,7 @@ const initialState = {
     ],
 }
 
-export default class UserCrud extends Component {
+export default class Ativos extends Component {
 
     state = { ...initialState }
 
@@ -249,22 +249,22 @@ export default class UserCrud extends Component {
                         </div>
                         {/* Fim Modal editar Membro */}
 
-                        <button type="button" className="btn btn-danger ml-1" data-toggle="modal" data-target="#excluirMembro">
-                            <i className="fa fa-trash"></i>
+                        <button type="button" className="btn btn-danger ml-1" data-toggle="modal" data-target="#arquivarMembro">
+                            <i className="fa fa-archive"></i>
                         </button>
 
                         {/* Início Modal excluir Membro */}
-                        <div className="modal fade" id="excluirMembro" role="dialog" aria-labelledby="ModalExcluirMembro" aria-hidden="true">
+                        <div className="modal fade" id="arquivarMembro" role="dialog" aria-labelledby="ModalArquivarMembro" aria-hidden="true">
                             <div className="modal-dialog modal-dialog-centered" role="document">
                                 <div className="modal-content">
                                     <div className="modal-header">
-                                        <h5 className="modal-title" id="ModalExcluirMembro"><i className="fa fa-trash"></i> Excluir membro</h5>
+                                        <h5 className="modal-title" id="ModalArquivarMembro"><i className="fa fa-archive"></i> Arquivar membro</h5>
                                         <button type="button" className="close" data-dismiss="modal" aria-label="Fechar">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
                                     <div className="modal-body">
-                                        Tem certeza que deseja excluir o membro {membro.nome}?
+                                        Tem certeza que deseja arquivar o membro {membro.nome}?
                                     </div>
 
                                     <div className="modal-footer">
