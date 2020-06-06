@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Main from '../template/Main'
 
 const headerProps = {
-    icon: 'user-plus',
+    icon: 'suitcase',
     title: 'Lista de Administradores',
     subtitle: 'Administradores / Lista'
 }

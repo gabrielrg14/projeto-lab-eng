@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import { Redirect } from 'react-router-dom'
 import axios from 'axios'
 import './Login.css'
+import App from '../../main/App'
 
 
 export default class Login extends Component {
@@ -11,7 +11,7 @@ export default class Login extends Component {
         this.state = {
             email: '',
             senha: '',
-            redirect: false  
+            logado: false
         } 
     }
 
@@ -27,15 +27,11 @@ export default class Login extends Component {
         e.preventDefault();
         var email = this.state.email;
         var senha = this.state.senha;
-        alert(email);
-        alert(senha);
         console.log(email);
         console.log(senha);
 
         if(email !== '' || senha !== '') {
-            email = email.value;
-            senha = senha.value;
-
+            let currentComponent = this;
             axios({
                 method: 'post',
                 url: 'https://projetolabengapi.azurewebsites.net/api/admin/login',
@@ -49,12 +45,13 @@ export default class Login extends Component {
             })
             .then(function(response) {
                 console.log(response);
-                this.setState({
-                    redirect: true
-                })
+                localStorage.setItem('logado', true);
+                currentComponent.setState({ logado: true });
+                currentComponent.render();
             })
             .catch(function(error) {
                 console.log(error);
+                alert("Acesso inválido!");
             });
         } else {
             alert("Preencha os campos!");
@@ -63,58 +60,56 @@ export default class Login extends Component {
 
     renderLogin() {
         return (
-            <div className="col-12 text-center">
-                <div className="container">
-                    <h2>Gerenciador de Membros</h2>
-                    <p className="text-muted mb-5">Acesse o portal com e-mail e senha</p>
+            <div className="login-sistema">
+                <div className="col-12 text-center">
+                    <div className="container">
+                        <h2>Gerenciador de Membros</h2>
+                        <p className="text-muted mb-5">Acesse o portal com e-mail e senha</p>
 
-                    <form onSubmit={e => this.authenticateLogin(e)}>
+                        <form onSubmit={e => this.authenticateLogin(e)}>
 
-                        <div className="col-6 offset-3 form-group">
-                            <input className="form-control" type="text" onChange={e => this.handleChangeEmail(e)} placeholder="E-mail" />
-                        </div>
-                    
-                        <div className="col-6 offset-3 form-group">
-                            <input className="form-control" type="password" onChange={e => this.handleChangeSenha(e)} placeholder="Senha" />
-                        </div>
-                    
-                        <div className="col-6 offset-3 form-group opcoes-abaixo">
-                            <div className="manter-conectado">
-                                <input className="mr-1 text-left" type="checkbox" name="manter-me" />
-                                <label>
-                                    Manter-me conectado
-                                </label>
+                            <div className="col-6 offset-3 form-group">
+                                <input className="form-control" type="text" onChange={e => this.handleChangeEmail(e)} placeholder="E-mail" />
                             </div>
-
-                            <div className="esqueci-senha">
-                                <a href="" className="">
-                                    Esqueci a senha
-                                </a>
-                            </div>
-                        </div>
-
                         
-                        <div className="col-6 offset-3">
-                            <button type="submit" className="btn btn-block btn-primary">
-                                Entrar
-                            </button>
-                        </div>
+                            <div className="col-6 offset-3 form-group">
+                                <input className="form-control" type="password" onChange={e => this.handleChangeSenha(e)} placeholder="Senha" />
+                            </div>
+                        
+                            <div className="col-6 offset-3 form-group opcoes-abaixo">
+                                <div className="manter-conectado">
+                                    <input className="mr-1 text-left" type="checkbox" name="manter-me" />
+                                    <label>
+                                        Manter-me conectado
+                                    </label>
+                                </div>
 
-                    </form>
+                                <div className="esqueci-senha">
+                                    <a href="" className="">
+                                        Esqueci a senha
+                                    </a>
+                                </div>
+                            </div>
+
+                            
+                            <div className="col-6 offset-3">
+                                <button type="submit" className="btn btn-block btn-primary">
+                                    Entrar
+                                </button>
+                            </div>
+
+                        </form>
+                    </div>
                 </div>
             </div>
         )
     }
 
     render() {
-        if(this.state.redirect) {
-            return <Redirect to="/" />
-        } else {
-            return(
-                <div className="login-sistema">
-                    {this.renderLogin()}
-                </div>
-            )
-        }
+        return(
+            <React.Fragment>
+                {this.state.logado ? <App /> : this.renderLogin()}
+            </React.Fragment>
+        )
     }
 }

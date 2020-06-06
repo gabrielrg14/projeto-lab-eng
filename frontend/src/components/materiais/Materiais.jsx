@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Main from '../template/Main'
 
 const headerProps = {
-    icon: 'square-o',
+    icon: 'puzzle-piece',
     title: 'Lista de Materiais',
     subtitle: 'Materiais / Lista'
 }
