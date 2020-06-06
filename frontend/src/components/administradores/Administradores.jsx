@@ -32,7 +32,7 @@ export default class Administradores extends Component {
                 </button>
 
                 {/* Início Modal novo Administrador */}
-                <div className="modal fade" id="inserirNovoAdministrador" tabindex="-1" role="dialog" aria-labelledby="ModalNovoAdministrador" aria-hidden="true">
+                <div className="modal fade" id="inserirNovoAdministrador" tabIndex="-1" role="dialog" aria-labelledby="ModalNovoAdministrador" aria-hidden="true">
                     <div className="modal-dialog modal-dialog-centered" role="document">
                         <div className="modal-content">
                             <div className="modal-header">
@@ -113,7 +113,7 @@ export default class Administradores extends Component {
                         </button>
 
                         {/* Início Modal editar Administrador */}
-                        <div className="modal fade" id="editarAdministrador" tabindex="-1" role="dialog" aria-labelledby="ModalEditarAdministrador" aria-hidden="true">
+                        <div className="modal fade" id="editarAdministrador" tabIndex="-1" role="dialog" aria-labelledby="ModalEditarAdministrador" aria-hidden="true">
                             <div className="modal-dialog modal-dialog-centered" role="document">
                                 <div className="modal-content">
                                     <div className="modal-header">
@@ -165,7 +165,7 @@ export default class Administradores extends Component {
                         </button>
 
                         {/* Início Modal excluir Administrador */}
-                        <div className="modal fade" id="excluirAdministrador" tabindex="-1" role="dialog" aria-labelledby="ModalExcluirAdministrador" aria-hidden="true">
+                        <div className="modal fade" id="excluirAdministrador" tabIndex="-1" role="dialog" aria-labelledby="ModalExcluirAdministrador" aria-hidden="true">
                             <div className="modal-dialog modal-dialog-centered" role="document">
                                 <div className="modal-content">
                                     <div className="modal-header">
@@ -197,11 +197,11 @@ export default class Administradores extends Component {
             <div className="paginacao-lista">
                 <nav>
                     <ul className="pagination justify-content-end">
-                        <li className="page-item disabled"><a className="page-link" href="#">&laquo;</a></li>
-                        <li className="page-item active" ><a className="page-link" href="#">1</a></li>
-                        <li className="page-item"><a className="page-link" href="#">2</a></li>
-                        <li className="page-item"><a className="page-link" href="#">3</a></li>
-                        <li className="page-item disabled"><a className="page-link" href="#">&raquo;</a></li>
+                        <li className="page-item disabled"><a className="page-link" href="">&laquo;</a></li>
+                        <li className="page-item active" ><a className="page-link" href="">1</a></li>
+                        <li className="page-item"><a className="page-link" href="">2</a></li>
+                        <li className="page-item"><a className="page-link" href="">3</a></li>
+                        <li className="page-item disabled"><a className="page-link" href="">&raquo;</a></li>
                     </ul>
                 </nav>
             </div>
