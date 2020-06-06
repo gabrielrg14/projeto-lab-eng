@@ -32,7 +32,7 @@ export default class Grupos extends Component {
                 </button>
 
                 {/* Início Modal novo Grupo */}
-                <div className="modal fade" id="inserirNovoGrupo" tabindex="-1" role="dialog" aria-labelledby="ModalNovoGrupo" aria-hidden="true">
+                <div className="modal fade" id="inserirNovoGrupo" tabIndex="-1" role="dialog" aria-labelledby="ModalNovoGrupo" aria-hidden="true">
                     <div className="modal-dialog modal-dialog-centered" role="document">
                         <div className="modal-content">
                             <div className="modal-header">
@@ -102,7 +102,7 @@ export default class Grupos extends Component {
                         </button>
 
                         {/* Início Modal editar Grupo */}
-                        <div className="modal fade" id="editarGrupo" tabindex="-1" role="dialog" aria-labelledby="ModalEditarGrupo" aria-hidden="true">
+                        <div className="modal fade" id="editarGrupo" tabIndex="-1" role="dialog" aria-labelledby="ModalEditarGrupo" aria-hidden="true">
                             <div className="modal-dialog modal-dialog-centered" role="document">
                                 <div className="modal-content">
                                     <div className="modal-header">
@@ -145,7 +145,7 @@ export default class Grupos extends Component {
                         </button>
 
                         {/* Início Modal excluir Grupo */}
-                        <div className="modal fade" id="excluirGrupo" tabindex="-1" role="dialog" aria-labelledby="ModalExcluirGrupo" aria-hidden="true">
+                        <div className="modal fade" id="excluirGrupo" tabIndex="-1" role="dialog" aria-labelledby="ModalExcluirGrupo" aria-hidden="true">
                             <div className="modal-dialog modal-dialog-centered" role="document">
                                 <div className="modal-content">
                                     <div className="modal-header">
@@ -177,11 +177,11 @@ export default class Grupos extends Component {
             <div className="paginacao-lista">
                 <nav>
                     <ul className="pagination justify-content-end">
-                        <li className="page-item disabled"><a className="page-link" href="#">&laquo;</a></li>
-                        <li className="page-item active" ><a className="page-link" href="#">1</a></li>
-                        <li className="page-item"><a className="page-link" href="#">2</a></li>
-                        <li className="page-item"><a className="page-link" href="#">3</a></li>
-                        <li className="page-item disabled"><a className="page-link" href="#">&raquo;</a></li>
+                        <li className="page-item disabled"><a className="page-link" href="">&laquo;</a></li>
+                        <li className="page-item active" ><a className="page-link" href="">1</a></li>
+                        <li className="page-item"><a className="page-link" href="">2</a></li>
+                        <li className="page-item"><a className="page-link" href="">3</a></li>
+                        <li className="page-item disabled"><a className="page-link" href="">&raquo;</a></li>
                     </ul>
                 </nav>
             </div>

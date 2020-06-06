@@ -35,7 +35,7 @@ export default class Materiais extends Component {
                 </button>
 
                 {/* Inicio Modal Novo Material */}
-                <div className="modal fade" id="inserirNovoMaterial" tabindex="-1" role="dialog" aria-labelledby="ModalNovoMaterial" aria-hidden="true">
+                <div className="modal fade" id="inserirNovoMaterial" tabIndex="-1" role="dialog" aria-labelledby="ModalNovoMaterial" aria-hidden="true">
                     <div className="modal-dialog modal-dialog-centered" role="document">
                         <div className="modal-content">
                             <div className="modal-header">
@@ -74,7 +74,7 @@ export default class Materiais extends Component {
                 {/* Fim Modal Novo Material */}
 
                 {/* Início Modal Nova Compra de Material */}
-                <div className="modal fade" id="inserirNovaCompra" tabindex="-1" role="dialog" aria-labelledby="ModalNovaCompra" aria-hidden="true">
+                <div className="modal fade" id="inserirNovaCompra" tabIndex="-1" role="dialog" aria-labelledby="ModalNovaCompra" aria-hidden="true">
                     <div className="modal-dialog modal-dialog-centered" role="document">
                         <div className="modal-content">
                             <div className="modal-header">
@@ -176,7 +176,7 @@ export default class Materiais extends Component {
                     </td>
 
                     {/* Início Modal editar Material */}
-                    <div className="modal fade" id="editarMaterial" tabindex="-1" role="dialog" aria-labelledby="ModalEditarMaterial" aria-hidden="true">
+                    <div className="modal fade" id="editarMaterial" tabIndex="-1" role="dialog" aria-labelledby="ModalEditarMaterial" aria-hidden="true">
                         <div className="modal-dialog modal-dialog-centered" role="document">
                             <div className="modal-content">
                                 <div className="modal-header">
@@ -224,7 +224,7 @@ export default class Materiais extends Component {
                     {/* Fim Modal editar Material */}
 
                     {/* Início Modal excluir Material */}
-                    <div className="modal fade" id="excluirMaterial" tabindex="-1" role="dialog" aria-labelledby="ModalExcluirMaterial" aria-hidden="true">
+                    <div className="modal fade" id="excluirMaterial" tabIndex="-1" role="dialog" aria-labelledby="ModalExcluirMaterial" aria-hidden="true">
                         <div className="modal-dialog modal-dialog-centered" role="document">
                             <div className="modal-content">
                                 <div className="modal-header">
@@ -255,11 +255,11 @@ export default class Materiais extends Component {
             <div className="paginacao-lista">
                 <nav>
                     <ul className="pagination justify-content-end">
-                        <li className="page-item disabled"><a className="page-link" href="#">&laquo;</a></li>
-                        <li className="page-item active" ><a className="page-link" href="#">1</a></li>
-                        <li className="page-item"><a className="page-link" href="#">2</a></li>
-                        <li className="page-item"><a className="page-link" href="#">3</a></li>
-                        <li className="page-item disabled"><a className="page-link" href="#">&raquo;</a></li>
+                        <li className="page-item disabled"><a className="page-link" href="">&laquo;</a></li>
+                        <li className="page-item active" ><a className="page-link" href="">1</a></li>
+                        <li className="page-item"><a className="page-link" href="">2</a></li>
+                        <li className="page-item"><a className="page-link" href="">3</a></li>
+                        <li className="page-item disabled"><a className="page-link" href="">&raquo;</a></li>
                     </ul>
                 </nav>
             </div>
