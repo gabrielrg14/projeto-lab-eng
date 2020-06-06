@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import axios from 'axios'
 import Main from '../template/Main'
 
 const headerProps = {
@@ -18,6 +19,22 @@ const initialState = {
 export default class Ativos extends Component {
 
     state = { ...initialState }
+
+    componentWillMount() {
+        axios({
+            method: 'get',
+            url: 'https://projetolabengapi.azurewebsites.net/api/membros',
+            headers: {
+                'Content-Type': 'application/json; charset=utf-8'
+            }
+        })
+        .then(function(response) {
+            console.log(response);
+        })
+        .catch(function(error) {
+            console.log(error);
+        });
+    }
 
     renderTopButtons() {
         return (
@@ -96,7 +113,7 @@ export default class Ativos extends Component {
                                             <div className="form-group">
                                                 <label htmlFor="status">Grupo</label>
                                                 <select className="form-control" id="status">
-                                                    <option selected disabled>Selecione...</option>
+                                                    <option value="" selected disabled>Selecione...</option>
                                                     <option value="grupo-x">Grupo X</option>
                                                     <option value="grupo-y">Grupo Y</option>
                                                     <option value="grupo-z">Grupo Z</option>
@@ -218,7 +235,7 @@ export default class Ativos extends Component {
                                                     <div className="form-group">
                                                         <label>Grupo</label>
                                                         <select className="form-control">
-                                                            <option selected disabled>Selecione...</option>
+                                                            <option value="" selected disabled>Selecione...</option>
                                                             <option value="grupo-x">Grupo X</option>
                                                             <option value="grupo-x">Grupo Y</option>
                                                             <option value="grupo-x">Grupo Z</option>
@@ -230,7 +247,7 @@ export default class Ativos extends Component {
                                                     <div className="form-group">
                                                         <label htmlFor="status">Status</label>
                                                         <select className="form-control" id="status">
-                                                            <option selected disabled>Selecione...</option>
+                                                            <option value="" selected disabled>Selecione...</option>
                                                             <option value="ativado">Ativado</option>
                                                             <option value="desativado">Desativado</option>
                                                         </select>

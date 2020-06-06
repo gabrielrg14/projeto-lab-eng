@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Main from '../template/Main'
 
 const headerProps = {
-    icon: 'pencil',
+    icon: 'users',
     title: 'Lista de Grupos',
     subtitle: 'Grupos / Lista'
 }

@@ -1,6 +1,7 @@
 import './Nav.css'
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import App from '../../main/App'
 
 export default class Nav extends Component {
 
@@ -8,6 +9,11 @@ export default class Nav extends Component {
         super(props);
 
         this.dropdownMembros = this.dropdownMembros.bind(this);
+    }
+
+    logout() {
+        localStorage.removeItem('logado');
+        return <App />
     }
 
     dropdownMembros() {
@@ -28,7 +34,7 @@ export default class Nav extends Component {
             <aside className="menu-area">
                 <nav className="menu">
                     <a type="button" className="text-sm-center text-md-left" onClick={this.dropdownMembros}>
-                        <i className="fa fa-users"></i> Membros <i className="fa fa-caret-down" id="seta-dropdown-membros"></i>
+                        <i className="fa fa-user-circle-o"></i> Membros <i className="fa fa-caret-down" id="seta-dropdown-membros"></i>
                     </a>
 
                     <div className="dropdown" id="dropdown-membros">
@@ -43,28 +49,32 @@ export default class Nav extends Component {
 
 
                     <Link className="text-sm-center text-md-left" to="/administradores">
-                        <i className="fa fa-user-plus"></i> Administradores
+                        <i className="fa fa-suitcase"></i> Administradores
                     </Link>
 
                     <Link className="text-sm-center text-md-left" to="/grupos">
-                        <i className="fa fa-pencil"></i> Grupos
+                        <i className="fa fa-users"></i> Grupos
                     </Link>
 
                     <Link className="text-sm-center text-md-left" to="/materiais">
-                        <i className="fa fa-square-o"></i> Materiais
+                        <i className="fa fa-puzzle-piece"></i> Materiais
                     </Link>
 
                     <Link className="text-sm-center text-md-left" to="/formacoes">
-                        <i className="fa fa-square"></i> Formações
+                        <i className="fa fa-th-large"></i> Formações
                     </Link>
 
                     <Link className="text-sm-center text-md-left" to="/musicas">
-                        <i className="fa fa-circle"></i> Músicas
+                        <i className="fa fa-music"></i> Músicas
                     </Link>
 
                     <Link className="text-sm-center text-md-left" to="/apresentacoes">
-                        <i className="fa fa-caret-up"></i> Apresentações
+                        <i className="fa fa-eye"></i> Apresentações
                     </Link>
+
+                    <a className="text-sm-center text-md-left" href="" onClickCapture={() => this.logout()}>
+                        <i className="fa fa-sign-out"></i> Sair
+                    </a>
                 </nav>
             </aside>
         )
