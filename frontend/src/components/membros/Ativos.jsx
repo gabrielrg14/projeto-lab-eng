@@ -9,18 +9,24 @@ const headerProps = {
 }
 
 const initialState = {
-    membros: [
-        { nome: 'Rodrigo', grupo: 'Grupo X', mensalidade: 'Em dia', status: 'Ativo', ultima_mensalidade: '2017-10-31 23:12:00' },
-        { nome: 'Gabriel', grupo: 'Grupo Y', mensalidade: 'Pendente', status: 'Desativado', ultima_mensalidade: '2017-10-31 24:15:00' },
-        { nome: 'Felipe', grupo: 'Grupo Z', mensalidade: 'Atrasada', status: 'Desativado', ultima_mensalidade: '2017-10-31 24:27:02' }
-    ],
+    membros: [],
+    grupos: [],
+    membro: { nome: '', cpf: '', contato: '', data_nascimento: '', nome_responsavel: '', conta_responsavel: '', status: '', grupo: '' }
 }
 
 export default class Ativos extends Component {
 
     state = { ...initialState }
 
+    clearStateMembro(e) {
+        e.preventDefault();
+        this.setState({ membro: initialState.membro })
+    }
+
     componentWillMount() {
+        let componenteAtual = this;
+
+        // Requisição backend para listar membros
         axios({
             method: 'get',
             url: 'https://projetolabengapi.azurewebsites.net/api/membros',
@@ -30,10 +36,182 @@ export default class Ativos extends Component {
         })
         .then(function(response) {
             console.log(response);
+            componenteAtual.setState({ membros: response.data });
         })
         .catch(function(error) {
             console.log(error);
         });
+
+        // Requisição backend para listar grupos
+        axios({
+            method: 'get',
+            url: 'https://projetolabengapi.azurewebsites.net/api/grupos',
+            headers: {
+                'Content-Type': 'application/json; charset=utf-8'
+            }
+        })
+        .then(function(response) {
+            console.log(response);
+            componenteAtual.setState({ grupos: response.data })
+        })
+        .catch(function(error) {
+            console.log(error);
+        });
+    }
+
+    listarGrupos() {
+        return (
+            this.state.grupos.map(grupo => {
+                return (
+                    <React.Fragment>
+                        <option value={grupo.id}>{grupo.nome}</option>
+                    </React.Fragment>
+                )
+            })
+        )
+    }
+
+    reloadPage() {
+        document.location.reload(false);
+    }
+
+    handleChangeMembro(e) {
+        const membro = { ...this.state.membro }
+        membro[e.target.name] = e.target.value
+        this.setState({ membro })
+        console.log(this.state.membro);
+        console.log(e.target.name);
+        console.log(e.target.value);
+    }
+
+    handleEditMembro(e, dadosMembro) {
+        var membro = { ...this.state.membro }
+        membro = dadosMembro;
+        this.setState({ membro });
+    }
+
+    incluirNovoMembro(e) {
+        e.preventDefault();
+        let componenteAtual = this;
+        console.log(this.state.membro);
+        axios({
+            method: 'post',
+            url: 'https://projetolabengapi.azurewebsites.net/api/membros',
+            data: {
+                nome: this.state.membro.nome,
+                contato: this.state.membro.contato,
+                nome_responsavel: this.state.membro.nome_responsavel,
+                conta_responsavel: this.state.membro.conta_responsavel,
+                cpf: this.state.membro.cpf,
+                data_nascimento: this.state.membro.data_nascimento
+            },
+            headers: {
+                'Content-Type': 'application/json; charset=utf-8'
+            }
+        })
+        .then(function(response) {
+            // console.log(response);
+            alert("Membro cadastrado com sucesso!");
+            componenteAtual.reloadPage();
+        })
+        .catch(function(error) {
+            console.log(error);
+            alert("Ocorreu um erro ao cadastrar o membro!");
+        });
+    }
+
+    editarMembro(e, idMembro) {
+        e.preventDefault();
+        let componenteAtual = this;
+        axios({
+            method: 'put',
+            url: 'https://projetolabengapi.azurewebsites.net/api/membros/' + idMembro,
+            data: {
+                nome: this.state.membro.nome,
+                contato: this.state.membro.contato,
+                nome_responsavel: this.state.membro.nome_responsavel,
+                conta_responsavel: this.state.membro.conta_responsavel,
+                cpf: this.state.membro.cpf,
+                data_nascimento: this.state.membro.data_nascimento,
+                status: this.state.membro.status
+            },
+            headers: {
+                'Content-Type': 'application/json; charset=utf-8'
+            }
+        })
+        .then(function(response) {
+            console.log(response);
+            alert("Membro editado com sucesso!");
+        })
+        .catch(function(error) {
+            console.log(error);
+            alert("Ocorreu um erro ao editar o membro!");
+        });
+
+        axios({
+            method: 'post',
+            url: 'https://projetolabengapi.azurewebsites.net/api/grupoMembro/' + this.state.membro.grupo + "/" + idMembro,
+            data: {
+                nome: this.state.membro.nome,
+                contato: this.state.membro.contato,
+                nome_responsavel: this.state.membro.nome_responsavel,
+                conta_responsavel: this.state.membro.conta_responsavel,
+                cpf: this.state.membro.cpf,
+                data_nascimento: this.state.membro.data_nascimento,
+                status: this.state.membro.status
+            },
+            headers: {
+                'Content-Type': 'application/json; charset=utf-8'
+            }
+        })
+        .then(function(response) {
+            console.log(response);
+            alert("Membro incluido no grupo com sucesso!");
+            componenteAtual.reloadPage();
+        })
+        .catch(function(error) {
+            console.log(error);
+            alert("Ocorreu um erro ao incluir o membro no grupo!");
+        });
+    }
+
+    excluirMembro(e, idMembro) {
+        e.preventDefault();
+        let componenteAtual = this;
+        axios({
+            method: 'delete',
+            url: 'https://projetolabengapi.azurewebsites.net/api/membros/' + idMembro,
+            headers: {
+                'Content-Type': 'application/json; charset=utf-8'
+            }
+        })
+        .then(function(response) {
+            console.log(response);
+            alert("Membro arquivado com sucesso!");
+            componenteAtual.reloadPage();
+        })
+        .catch(function(error) {
+            console.log(error);
+            alert("Ocorreu um erro ao arquivar o membro!");
+        });
+    }
+
+    verificaStatusMembro(status) {
+        if(status === 'Ativo') {
+            return (
+                <select className="form-control" name="status" onChange={e => this.handleChangeMembro(e)}>
+                    <option value={status} selected>{status}</option>
+                    <option value="Desativado">Desativado</option>
+                </select>
+            )
+        } else {
+            return (
+                <select className="form-control" name="status" onChange={e => this.handleChangeMembro(e)}>
+                    <option value={status} selected>{status}</option>
+                    <option value="Ativo">Ativo</option>
+                </select>
+            )
+        }
     }
 
     renderTopButtons() {
@@ -64,14 +242,14 @@ export default class Ativos extends Component {
                                         <div className="col-12 col-md-6 text-left campo-form-modal">
                                             <div className="form-group">
                                                 <label>Nome</label>
-                                                <input type="text" className="form-control" name="name" placeholder="Nome do membro" />
+                                                <input type="text" className="form-control" name="nome" onChange={e => this.handleChangeMembro(e)} placeholder="Nome do membro" />
                                             </div>
                                         </div>
 
                                         <div className="col-12 col-md-6 text-left campo-form-modal">
                                             <div className="form-group">
                                                 <label>CPF</label>
-                                                <input type="text" className="form-control" name="cpf" placeholder="CPF do membro" />
+                                                <input type="text" className="form-control" name="cpf" onChange={e => this.handleChangeMembro(e)} placeholder="CPF do membro" />
                                             </div>
                                         </div>
                                     </div>
@@ -80,44 +258,30 @@ export default class Ativos extends Component {
                                         <div className="col-12 col-md-6 text-left campo-form-modal">
                                             <div className="form-group">
                                                 <label>Celular</label>
-                                                <input type="text" className="form-control" name="celular" placeholder="Celular do membro" />
+                                                <input type="text" className="form-control" name="contato" onChange={e => this.handleChangeMembro(e)} placeholder="Celular do membro" />
+                                            </div>
+                                        </div>
+
+                                        <div className="col-12 col-md-6 text-left campo-form-modal">
+                                            <div className="form-group">
+                                                <label>Data de Nascimento</label>
+                                                <input type="date" className="form-control" name="data_nascimento" onChange={e => this.handleChangeMembro(e)} />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="row">
+                                        <div className="col-12 col-md-6 text-left campo-form-modal">
+                                            <div className="form-group">
+                                                <label >Nome do Responsável</label>
+                                                <input type="text" className="form-control" name="nome_responsavel" onChange={e => this.handleChangeMembro(e)} placeholder="Nome do responsável" />
                                             </div>
                                         </div>
 
                                         <div className="col-12 col-md-6 text-left campo-form-modal">
                                             <div className="form-group">
                                                 <label>Celular do Responsável</label>
-                                                <input type="text" className="form-control" name="celular-resp" placeholder="Celular do responsável" />
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div className="row">
-                                        <div className="col-12 col-md-6 text-left campo-form-modal">
-                                            <div className="form-group">
-                                                <label>Data de Nascimento</label>
-                                                <input type="date" className="form-control" name="data-nascimento" />
-                                            </div>
-                                        </div>
-
-                                        <div className="col-12 col-md-6 text-left campo-form-modal">
-                                            <div className="form-group">
-                                                <label>Data de Cadastro</label>
-                                                <input type="date" className="form-control" name="data-cadastro" />
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div className="row">
-                                        <div className="col-12 col-md-6 offset-md-3 text-left text-md-center campo-form-modal">
-                                            <div className="form-group">
-                                                <label htmlFor="status">Grupo</label>
-                                                <select className="form-control" id="status">
-                                                    <option value="" selected disabled>Selecione...</option>
-                                                    <option value="grupo-x">Grupo X</option>
-                                                    <option value="grupo-y">Grupo Y</option>
-                                                    <option value="grupo-z">Grupo Z</option>
-                                                </select>
+                                                <input type="text" className="form-control" name="conta_responsavel" onChange={e => this.handleChangeMembro(e)} placeholder="Celular do responsável" />
                                             </div>
                                         </div>
                                     </div>
@@ -125,8 +289,8 @@ export default class Ativos extends Component {
                             </div>
 
                             <div className="modal-footer">
-                                <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                                <button type="button" className="btn btn-primary">Salvar</button>
+                                <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={e => this.clearStateMembro(e)}>Cancelar</button>
+                                <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={e => this.incluirNovoMembro(e)}>Salvar</button>
                             </div>
                         </div>
                     </div>
@@ -143,9 +307,9 @@ export default class Ativos extends Component {
                     <tr>
                         <th>Nome</th>
                         <th>Grupo</th>
-                        <th>Mensalidade</th>
+                        {/* <th>Mensalidade</th> */}
                         <th>Status</th>
-                        <th>Última mensalidade</th>
+                        {/* <th>Última mensalidade</th> */}
                         <th>Ações</th>
                     </tr>
                 </thead>
@@ -159,19 +323,19 @@ export default class Ativos extends Component {
     renderRows() {
         return this.state.membros.map(membro => {
             return (
-                <tr>
+                <tr key={membro.id}>
                     <td>{membro.nome}</td>
                     <td>{membro.grupo}</td>
-                    <td>{membro.mensalidade}</td>
+                    {/* <td>{membro.mensalidade}</td> */}
                     <td>{membro.status}</td>
-                    <td>{membro.ultima_mensalidade}</td>
+                    {/* <td>{membro.updatedAt}</td> */}
                     <td>
-                        <button type="button" className="btn btn-warning" data-toggle="modal" data-target="#editarMembro">
+                        <button type="button" className="btn btn-warning" data-toggle="modal" data-target={"#editarMembro-" + membro.id} onClick={e => this.handleEditMembro(e, membro)}>
                             <i className="fa fa-pencil"></i>
                         </button>
 
                         {/* Início Modal editar Membro */}
-                        <div className="modal fade" id="editarMembro" role="dialog" aria-labelledby="ModalEditarMembro" aria-hidden="true">
+                        <div className="modal fade" id={"editarMembro-" + membro.id} role="dialog" aria-labelledby="ModalEditarMembro" aria-hidden="true">
                             <div className="modal-dialog modal-dialog-centered" role="document">
                                 <div className="modal-content">
                                     <div className="modal-header">
@@ -186,14 +350,14 @@ export default class Ativos extends Component {
                                                 <div className="col-12 col-md-6 text-left campo-form-modal">
                                                     <div className="form-group">
                                                         <label>Nome</label>
-                                                        <input type="text" className="form-control" name="name" value={membro.nome} placeholder="Nome do membro" />
+                                                        <input type="text" className="form-control" name="nome" value={this.state.membro.nome} onChange={e => this.handleChangeMembro(e)} placeholder="Nome do membro" />
                                                     </div>
                                                 </div>
 
                                                 <div className="col-12 col-md-6 text-left campo-form-modal">
                                                     <div className="form-group">
                                                         <label>CPF</label>
-                                                        <input type="text" className="form-control" name="cpf" placeholder="CPF do membro" />
+                                                        <input type="text" className="form-control" name="cpf" value={this.state.membro.cpf} onChange={e => this.handleChangeMembro(e)} placeholder="CPF do membro" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -202,14 +366,14 @@ export default class Ativos extends Component {
                                                 <div className="col-12 col-md-6 text-left campo-form-modal">
                                                     <div className="form-group">
                                                         <label>Celular</label>
-                                                        <input type="text" className="form-control" name="celular" placeholder="Celular do membro" />
+                                                        <input type="text" className="form-control" name="contato" value={this.state.membro.contato} onChange={e => this.handleChangeMembro(e)} placeholder="Celular do membro" />
                                                     </div>
                                                 </div>
 
                                                 <div className="col-12 col-md-6 text-left campo-form-modal">
                                                     <div className="form-group">
-                                                        <label>Celular do Responsável</label>
-                                                        <input type="text" className="form-control" name="celular-resp" placeholder="Celular do responsável" />
+                                                        <label>Data de Nascimento</label>
+                                                        <input type="date" className="form-control" value={this.state.membro.data_nascimento} onChange={e => this.handleChangeMembro(e)} name="data_nascimento" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -217,15 +381,15 @@ export default class Ativos extends Component {
                                             <div className="row">
                                                 <div className="col-12 col-md-6 text-left campo-form-modal">
                                                     <div className="form-group">
-                                                        <label>Data de Nascimento</label>
-                                                        <input type="date" className="form-control" name="data-nascimento" />
+                                                        <label >Nome do Responsável</label>
+                                                        <input type="text" className="form-control" name="nome_responsavel" value={this.state.membro.nome_responsavel} onChange={e => this.handleChangeMembro(e)} placeholder="Nome do responsável" />
                                                     </div>
                                                 </div>
 
                                                 <div className="col-12 col-md-6 text-left campo-form-modal">
                                                     <div className="form-group">
-                                                        <label>Data de Cadastro</label>
-                                                        <input type="date" className="form-control" name="data-cadastro" />
+                                                        <label>Celular do Responsável</label>
+                                                        <input type="text" className="form-control" name="conta_responsavel" value={this.state.membro.conta_responsavel} onChange={e => this.handleChangeMembro(e)} placeholder="Celular do responsável" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -234,11 +398,9 @@ export default class Ativos extends Component {
                                                 <div className="col-12 col-md-6 campo-form-modal">
                                                     <div className="form-group">
                                                         <label>Grupo</label>
-                                                        <select className="form-control">
+                                                        <select className="form-control" name="grupo" onChange={e => this.handleChangeMembro(e)}>
                                                             <option value="" selected disabled>Selecione...</option>
-                                                            <option value="grupo-x">Grupo X</option>
-                                                            <option value="grupo-x">Grupo Y</option>
-                                                            <option value="grupo-x">Grupo Z</option>
+                                                            {this.listarGrupos()}
                                                         </select>
                                                     </div>
                                                 </div>
@@ -246,11 +408,7 @@ export default class Ativos extends Component {
                                                 <div className="col-12 col-md-6 campo-form-modal">
                                                     <div className="form-group">
                                                         <label htmlFor="status">Status</label>
-                                                        <select className="form-control" id="status">
-                                                            <option value="" selected disabled>Selecione...</option>
-                                                            <option value="ativado">Ativado</option>
-                                                            <option value="desativado">Desativado</option>
-                                                        </select>
+                                                        {this.verificaStatusMembro(membro.status)}
                                                     </div>
                                                 </div>
                                             </div>
@@ -258,20 +416,20 @@ export default class Ativos extends Component {
                                     </div>
 
                                     <div className="modal-footer">
-                                        <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                                        <button type="button" className="btn btn-primary">Salvar</button>
+                                        <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={e => this.clearStateMembro(e)}>Cancelar</button>
+                                        <button type="button" className="btn btn-primary" onClick={e => this.editarMembro(e, membro.id)}>Salvar</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         {/* Fim Modal editar Membro */}
 
-                        <button type="button" className="btn btn-danger ml-1" data-toggle="modal" data-target="#arquivarMembro">
+                        <button type="button" className="btn btn-danger ml-1" data-toggle="modal" data-target={"#arquivarMembro-" + membro.id}>
                             <i className="fa fa-archive"></i>
                         </button>
 
                         {/* Início Modal excluir Membro */}
-                        <div className="modal fade" id="arquivarMembro" role="dialog" aria-labelledby="ModalArquivarMembro" aria-hidden="true">
+                        <div className="modal fade" id={"arquivarMembro-" + membro.id} role="dialog" aria-labelledby="ModalArquivarMembro" aria-hidden="true">
                             <div className="modal-dialog modal-dialog-centered" role="document">
                                 <div className="modal-content">
                                     <div className="modal-header">
@@ -286,7 +444,7 @@ export default class Ativos extends Component {
 
                                     <div className="modal-footer">
                                         <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                                        <button type="button" className="btn btn-danger">Sim</button>
+                                        <button type="button" className="btn btn-danger" data-dismiss="modal" onClick={e => this.excluirMembro(e, membro.id)}>Sim</button>
                                     </div>
                                 </div>
                             </div>

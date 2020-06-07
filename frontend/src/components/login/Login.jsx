@@ -31,7 +31,7 @@ export default class Login extends Component {
         console.log(senha);
 
         if(email !== '' || senha !== '') {
-            let currentComponent = this;
+            let componenteAtual = this;
             axios({
                 method: 'post',
                 url: 'https://projetolabengapi.azurewebsites.net/api/admin/login',
@@ -46,8 +46,8 @@ export default class Login extends Component {
             .then(function(response) {
                 console.log(response);
                 localStorage.setItem('logado', true);
-                currentComponent.setState({ logado: true });
-                currentComponent.render();
+                componenteAtual.setState({ logado: true });
+                componenteAtual.render();
             })
             .catch(function(error) {
                 console.log(error);

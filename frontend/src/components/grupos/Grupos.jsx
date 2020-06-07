@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import axios from 'axios'
 import Main from '../template/Main'
 
 const headerProps = {
@@ -8,16 +9,67 @@ const headerProps = {
 }
 
 const initialState = {
-    grupos: [
-        { nome: 'Grupo X', modalidade: 'Modalidade 1' },
-        { nome: 'Grupo Y', modalidade: 'Modalidade 2' },
-        { nome: 'Grupo Z', modalidade: 'Modalidade 3' }
-    ],
+    grupos: [],
+    grupo: { nome: '', modalidade: '' }
 }
 
 export default class Grupos extends Component {
 
     state = { ...initialState }
+
+    componentWillMount() {
+        let componenteAtual = this;
+        axios({
+            method: 'get',
+            url: 'https://projetolabengapi.azurewebsites.net/api/grupos',
+            headers: {
+                'Content-Type': 'application/json; charset=utf-8'
+            }
+        })
+        .then(function(response) {
+            console.log(response);
+            componenteAtual.setState({ grupos: response.data })
+        })
+        .catch(function(error) {
+            console.log(error);
+        });
+    }
+
+    reloadPage() {
+        document.location.reload(false);
+    }
+
+    handleChangeGrupo(e) {
+        const grupo = { ...this.state.grupo }
+        grupo[e.target.name] = e.target.value
+        this.setState({ grupo })
+        console.log(this.state.grupo);
+    }
+
+    incluirNovoGrupo(e) {
+        e.preventDefault();
+        let componenteAtual = this;
+        axios({
+            method: 'post',
+            url: 'https://projetolabengapi.azurewebsites.net/api/grupos',
+            data: {
+                nome: this.state.grupo.nome,
+                modalidade: this.state.grupo.modalidade
+            },
+            headers: {
+                'Content-Type': 'application/json; charset=utf-8'
+            }
+        })
+        .then(function(response) {
+            // console.log(response);
+            alert("Grupo cadastrado com sucesso!");
+            componenteAtual.reloadPage();
+        })
+        .catch(function(error) {
+            console.log(error);
+            alert("Ocorreu um erro ao cadastrar o Grupo!");
+        });
+    }
 
     renderTopButtons() {
         return (
@@ -47,14 +99,14 @@ export default class Grupos extends Component {
                                         <div className="col-12 col-md-6 text-left campo-form-modal">
                                             <div className="form-group">
                                                 <label>Nome</label>
-                                                <input type="text" className="form-control" name="nome" placeholder="Nome do grupo" />
+                                                <input type="text" className="form-control" name="nome" onChange={e => this.handleChangeGrupo(e)} placeholder="Nome do grupo" />
                                             </div>
                                         </div>
 
                                         <div className="col-12 col-md-6 text-left campo-form-modal">
                                             <div className="form-group">
                                                 <label>Modalidade</label>
-                                                <input type="text" className="form-control" name="modalidade" placeholder="Modalidade do grupo" />
+                                                <input type="text" className="form-control" name="modalidade" onChange={e => this.handleChangeGrupo(e)} placeholder="Modalidade do grupo" />
                                             </div>
                                         </div>
                                     </div>
@@ -63,7 +115,7 @@ export default class Grupos extends Component {
 
                             <div className="modal-footer">
                                 <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                                <button type="button" className="btn btn-primary">Salvar</button>
+                                <button type="button" className="btn btn-primary" onClick={e => this.incluirNovoGrupo(e)}>Salvar</button>
                             </div>
                         </div>
                     </div>
@@ -93,16 +145,16 @@ export default class Grupos extends Component {
     renderRows() {
         return this.state.grupos.map(grupo => {
             return (
-                <tr>
+                <tr key={grupo.id}>
                     <td>{grupo.nome}</td>
                     <td>{grupo.modalidade}</td>
                     <td>
-                        <button type="button" className="btn btn-warning" data-toggle="modal" data-target="#editarGrupo">
+                        <button type="button" className="btn btn-warning" data-toggle="modal" data-target={"#editarGrupo" + grupo.id}>
                             <i className="fa fa-pencil"></i>
                         </button>
 
                         {/* Início Modal editar Grupo */}
-                        <div className="modal fade" id="editarGrupo" tabIndex="-1" role="dialog" aria-labelledby="ModalEditarGrupo" aria-hidden="true">
+                        <div className="modal fade" id={"editarGrupo" + grupo.id} tabIndex="-1" role="dialog" aria-labelledby="ModalEditarGrupo" aria-hidden="true">
                             <div className="modal-dialog modal-dialog-centered" role="document">
                                 <div className="modal-content">
                                     <div className="modal-header">
@@ -117,14 +169,14 @@ export default class Grupos extends Component {
                                                 <div className="col-12 col-md-6 text-left campo-form-modal">
                                                     <div className="form-group">
                                                         <label>Nome</label>
-                                                        <input type="text" className="form-control" name="name" value={grupo.nome} placeholder="Nome do grupo" />
+                                                        <input type="text" className="form-control" name="nome" value={grupo.nome} placeholder="Nome do grupo" />
                                                     </div>
                                                 </div>
 
                                                 <div className="col-12 col-md-6 text-left campo-form-modal">
                                                     <div className="form-group">
                                                         <label>Modalidade</label>
-                                                        <input type="text" className="form-control" name="cpf" placeholder="Modalidade do grupo" />
+                                                        <input type="text" className="form-control" name="modalidade" value={grupo.modalidade} placeholder="Modalidade do grupo" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -133,19 +185,19 @@ export default class Grupos extends Component {
 
                                     <div className="modal-footer">
                                         <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                                        <button type="button" className="btn btn-primary">Salvar</button>
+                                        <button type="button" className="btn btn-primary" data-dismiss="modal">Salvar</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         {/* Fim Modal editar Grupo */}
 
-                        <button type="button" className="btn btn-danger ml-1" data-toggle="modal" data-target="#excluirGrupo">
+                        <button type="button" className="btn btn-danger ml-1" data-toggle="modal" data-target={"#excluirGrupo" + grupo.id}>
                             <i className="fa fa-trash"></i>
                         </button>
 
                         {/* Início Modal excluir Grupo */}
-                        <div className="modal fade" id="excluirGrupo" tabIndex="-1" role="dialog" aria-labelledby="ModalExcluirGrupo" aria-hidden="true">
+                        <div className="modal fade" id={"excluirGrupo" + grupo.id} tabIndex="-1" role="dialog" aria-labelledby="ModalExcluirGrupo" aria-hidden="true">
                             <div className="modal-dialog modal-dialog-centered" role="document">
                                 <div className="modal-content">
                                     <div className="modal-header">
@@ -160,7 +212,7 @@ export default class Grupos extends Component {
 
                                     <div className="modal-footer">
                                         <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                                        <button type="button" className="btn btn-danger">Sim</button>
+                                        <button type="button" className="btn btn-danger" data-dismiss="modal">Sim</button>
                                     </div>
                                 </div>
                             </div>
