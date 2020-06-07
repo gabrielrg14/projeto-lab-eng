@@ -4,11 +4,14 @@ import 'font-awesome/css/font-awesome.min.css'
 import './App.css'
 import React, { Component } from 'react'
 import { BrowserRouter } from 'react-router-dom'
+import axios from 'axios'
 
 import Login from '../components/login/Login'
 import Logo from '../components/template/Logo'
 import Nav from '../components/template/Nav'
 import Routes from './Routes'
+
+axios.defaults.withCredentials = true
 
 export default class App extends Component {
 
