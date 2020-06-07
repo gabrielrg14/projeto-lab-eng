@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import axios from 'axios'
 import Main from '../template/Main'
 
 const headerProps = {
@@ -8,16 +9,69 @@ const headerProps = {
 }
 
 const initialState = {
-    administradores: [
-        { nome: 'Rodrigo', email: 'rodrigo@projlabeng.com', contato: '(19) 9875-2141' },
-        { nome: 'Gabriel', email: 'gabriel@projlabeng.com', contato: '(19) 98132-1964' },
-        { nome: 'Felipe', email: 'felipe@projlabeng.com', contato: '(19) 9885-2352' }
-    ],
+    administradores: [],
+    administrador: { nome: '', contato: '', email: '', senha: '' }
 }
 
 export default class Administradores extends Component {
 
     state = { ...initialState }
+
+    componentWillMount() {
+        let componenteAtual = this;
+        axios({
+            method: 'get',
+            url: 'https://projetolabengapi.azurewebsites.net/api/admin',
+            headers: {
+                'Content-Type': 'application/json; charset=utf-8'
+            }
+        })
+        .then(function(response) {
+            console.log(response);
+            componenteAtual.setState({ administradores: response.data })
+        })
+        .catch(function(error) {
+            console.log(error);
+        });
+    }
+
+    reloadPage() {
+        document.location.reload(false);
+    }
+
+    handleChangeAdministrador(e) {
+        const administrador = { ...this.state.administrador }
+        administrador[e.target.name] = e.target.value
+        this.setState({ administrador })
+        console.log(this.state.administrador);
+    }
+
+    incluirNovoAdministrador(e) {
+        e.preventDefault();
+        let componenteAtual = this;
+        axios({
+            method: 'post',
+            url: 'https://projetolabengapi.azurewebsites.net/api/admin/register',
+            data: {
+                nome: this.state.administrador.nome,
+                email: this.state.administrador.email,
+                contato: this.state.administrador.contato,
+                senha: this.state.administrador.senha
+            },
+            headers: {
+                'Content-Type': 'application/json; charset=utf-8'
+            }
+        })
+        .then(function(response) {
+            // console.log(response);
+            alert("Administrador cadastrado com sucesso!");
+            componenteAtual.reloadPage();
+        })
+        .catch(function(error) {
+            console.log(error);
+            alert("Ocorreu um erro ao cadastrar o Administrador!");
+        });
+    }
 
     renderTopButtons() {
         return (
@@ -26,6 +80,7 @@ export default class Administradores extends Component {
                     <i className="fa fa-plus mr-3"></i>
                     Novo administrador
                 </button>
+
                 <button className="btn btn-dark ml-1">
                     Ações
                     <i className="fa fa-caret-down ml-3"></i>
@@ -47,14 +102,14 @@ export default class Administradores extends Component {
                                         <div className="col-12 col-md-6 text-left campo-form-modal">
                                             <div className="form-group">
                                                 <label>Nome</label>
-                                                <input type="text" className="form-control" name="name" placeholder="Nome do administrador" />
+                                                <input type="text" className="form-control" name="nome" onChange={e => this.handleChangeAdministrador(e)} placeholder="Nome do administrador" />
                                             </div>
                                         </div>
 
                                         <div className="col-12 col-md-6 text-left campo-form-modal">
                                             <div className="form-group">
                                                 <label>Contato</label>
-                                                <input type="text" className="form-control" name="contato" placeholder="Contato do administrador" />
+                                                <input type="text" className="form-control" name="contato" onChange={e => this.handleChangeAdministrador(e)} placeholder="Contato do administrador" />
                                             </div>
                                         </div>
                                     </div>
@@ -62,8 +117,17 @@ export default class Administradores extends Component {
                                     <div className="row">
                                         <div className="col-12 col-md-8 offset-md-2 text-left text-md-center campo-form-modal">
                                             <div className="form-group">
-                                                <label for="status">E-mail</label>
-                                                <input type="email" className="form-control" name="email" placeholder="E-mail do administrador" />
+                                                <label>E-mail</label>
+                                                <input type="email" className="form-control" name="email" onChange={e => this.handleChangeAdministrador(e)} placeholder="E-mail do administrador" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="row">
+                                        <div className="col-12 col-md-8 offset-md-2 text-left text-md-center campo-form-modal">
+                                            <div className="form-group">
+                                                <label>Senha</label>
+                                                <input type="password" className="form-control" name="senha" onChange={e => this.handleChangeAdministrador(e)} placeholder="Senha do administrador" />
                                             </div>
                                         </div>
                                     </div>
@@ -72,7 +136,7 @@ export default class Administradores extends Component {
 
                             <div className="modal-footer">
                                 <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                                <button type="button" className="btn btn-primary">Salvar</button>
+                                <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={e => this.incluirNovoAdministrador(e)}>Salvar</button>
                             </div>
                         </div>
                     </div>
@@ -103,17 +167,17 @@ export default class Administradores extends Component {
     renderRows() {
         return this.state.administradores.map(administrador => {
             return (
-                <tr>
+                <tr key={administrador.id}>
                     <td>{administrador.nome}</td>
                     <td>{administrador.email}</td>
                     <td>{administrador.contato}</td>
                     <td>
-                        <button type="button" className="btn btn-warning" data-toggle="modal" data-target="#editarAdministrador">
+                        <button type="button" className="btn btn-warning" data-toggle="modal" data-target={"#editarAdministrador-" + administrador.id}>
                             <i className="fa fa-pencil"></i>
                         </button>
 
                         {/* Início Modal editar Administrador */}
-                        <div className="modal fade" id="editarAdministrador" tabIndex="-1" role="dialog" aria-labelledby="ModalEditarAdministrador" aria-hidden="true">
+                        <div className="modal fade" id={"editarAdministrador-" + administrador.id} tabIndex="-1" role="dialog" aria-labelledby="ModalEditarAdministrador" aria-hidden="true">
                             <div className="modal-dialog modal-dialog-centered" role="document">
                                 <div className="modal-content">
                                     <div className="modal-header">
@@ -135,7 +199,7 @@ export default class Administradores extends Component {
                                                 <div className="col-12 col-md-6 text-left campo-form-modal">
                                                     <div className="form-group">
                                                         <label>Contato</label>
-                                                        <input type="text" className="form-control" name="contato" placeholder="Contato do administrador" />
+                                                        <input type="text" className="form-control" name="contato" value={administrador.contato} placeholder="Contato do administrador" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -144,7 +208,16 @@ export default class Administradores extends Component {
                                                 <div className="col-12 col-md-8 offset-md-2 text-left campo-form-modal">
                                                     <div className="form-group">
                                                         <label>E-mail</label>
-                                                        <input type="email" className="form-control" name="email" placeholder="E-mail do administrador" />
+                                                        <input type="email" className="form-control" name="email" value={administrador.email} placeholder="E-mail do administrador" />
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div className="row">
+                                                <div className="col-12 col-md-8 offset-md-2 text-left text-md-center campo-form-modal">
+                                                    <div className="form-group">
+                                                        <label>Senha</label>
+                                                        <input type="password" className="form-control" name="senha" value={administrador.senha} placeholder="Senha do administrador" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -153,19 +226,19 @@ export default class Administradores extends Component {
 
                                     <div className="modal-footer">
                                         <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                                        <button type="button" className="btn btn-primary">Salvar</button>
+                                        <button type="button" className="btn btn-primary" data-dismiss="modal">Salvar</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         {/* Fim Modal editar Administrador */}
 
-                        <button type="button" className="btn btn-danger ml-1" data-toggle="modal" data-target="#excluirAdministrador">
+                        <button type="button" className="btn btn-danger ml-1" data-toggle="modal" data-target={"#excluirAdministrador" + administrador.id}>
                             <i className="fa fa-trash"></i>
                         </button>
 
                         {/* Início Modal excluir Administrador */}
-                        <div className="modal fade" id="excluirAdministrador" tabIndex="-1" role="dialog" aria-labelledby="ModalExcluirAdministrador" aria-hidden="true">
+                        <div className="modal fade" id={"excluirAdministrador" + administrador.id} tabIndex="-1" role="dialog" aria-labelledby="ModalExcluirAdministrador" aria-hidden="true">
                             <div className="modal-dialog modal-dialog-centered" role="document">
                                 <div className="modal-content">
                                     <div className="modal-header">
@@ -180,7 +253,7 @@ export default class Administradores extends Component {
 
                                     <div className="modal-footer">
                                         <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                                        <button type="button" className="btn btn-danger">Sim</button>
+                                        <button type="button" className="btn btn-danger" data-dismiss="modal">Sim</button>
                                     </div>
                                 </div>
                             </div>
