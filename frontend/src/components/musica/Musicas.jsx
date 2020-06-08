@@ -44,42 +44,42 @@ export default class UserCrud extends Component {
                             <div class="modal-body">
                                 <div className="form">
                                     <div className="row">
-                                        <div className="col-12 col-md-4">
+                                        <div className="col-12 col-md-6">
                                             <div className="form-group">
                                                 <label>Nome</label>
                                                 <input type="text" className="form-control" name="nome" placeholder="Nome da música" />
                                             </div>
                                         </div>
 
-                                        <div className="col-12 col-md-4">
+                                        <div className="col-12 col-md-6">
                                             <div className="form-group">
                                                 <label>Grupo</label>
                                                 <input type="text" className="form-control" name="grupo" placeholder="Nome do grupo" />
                                             </div>
                                         </div>
 
-                                        <div className="col-12 col-md-4">
+                                        <div className="col-12 col-md-6">
                                             <div className="form-group">
                                                 <label>Descrição</label>
                                                 <input type="text" className="form-control" name="descricao" placeholder="Descrição da música" />
                                             </div>
                                         </div>
 
-                                        <div className="col-12 col-md-4">
+                                        <div className="col-12 col-md-6">
                                             <div className="form-group">
                                                 <label>Formação</label>
                                                 <input type="text" className="form-control" name="formacao" placeholder="Formação" />
                                             </div>
                                         </div>
 
-                                        <div className="col-12 col-md-4">
+                                        <div className="col-12 col-md-6">
                                             <div className="form-group">
                                                 <label>Quantidade de Instrumentos</label>
                                                 <input type="number" className="form-control" name="quantidade" placeholder="Quantidade de instrumentos" min="1" />
                                             </div>
                                         </div>
 
-                                        <div className="col-12 col-md-4">
+                                        <div className="col-12 col-md-6">
                                             <div className="form-group">
                                                 <label>Duração</label>
                                                 <input type="time" className="form-control" name="tempo" placeholder="Tempo de duração" />
@@ -174,42 +174,42 @@ export default class UserCrud extends Component {
                                         <div className="modal-body">
                                             <div className="form">
                                                 <div className="row">
-                                                    <div className="col-12 col-md-4">
+                                                    <div className="col-12 col-md-6">
                                                         <div className="form-group">
                                                             <label>Nome</label>
                                                             <input type="text" className="form-control" name="nome" placeholder="Nome da música" />
                                                         </div>
                                                     </div>
 
-                                                    <div className="col-12 col-md-4">
+                                                    <div className="col-12 col-md-6">
                                                         <div className="form-group">
                                                             <label>Grupo</label>
                                                             <input type="text" className="form-control" name="grupo" placeholder="Nome do grupo" />
                                                         </div>
                                                     </div>
 
-                                                    <div className="col-12 col-md-4">
+                                                    <div className="col-12 col-md-6">
                                                         <div className="form-group">
                                                             <label>Descrição</label>
                                                             <input type="text" className="form-control" name="descricao" placeholder="Descrição da música" />
                                                         </div>
                                                     </div>
 
-                                                    <div className="col-12 col-md-4">
+                                                    <div className="col-12 col-md-6">
                                                         <div className="form-group">
                                                             <label>Formação</label>
                                                             <input type="text" className="form-control" name="formacao" placeholder="Formação" />
                                                         </div>
                                                     </div>
 
-                                                    <div className="col-12 col-md-4">
+                                                    <div className="col-12 col-md-6">
                                                         <div className="form-group">
                                                             <label>Quantidade de Instrumentos</label>
                                                             <input type="number" className="form-control" name="quantidade" placeholder="Quantidade de instrumentos" min="1" />
                                                         </div>
                                                     </div>
 
-                                                    <div className="col-12 col-md-4">
+                                                    <div className="col-12 col-md-6">
                                                         <div className="form-group">
                                                             <label>Duração</label>
                                                             <input type="time" className="form-control" name="tempo" placeholder="Tempo de duração" />
@@ -228,7 +228,7 @@ export default class UserCrud extends Component {
                             </div>
                             {/* Fim Modal editar Membro */}
 
-                        <button className="btn btn-danger" data-toggle="modal" data-target="#excluirMusica">
+                        <button className="btn btn-danger ml-1" data-toggle="modal" data-target="#excluirMusica">
                             <i className="fa fa-trash"></i>
                         </button>
 

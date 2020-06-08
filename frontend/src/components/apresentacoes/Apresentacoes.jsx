@@ -44,21 +44,21 @@ export default class UserCrud extends Component {
                             <div class="modal-body">
                                 <div className="form">
                                     <div className="row">
-                                        <div className="col-12 col-md-4">
+                                        <div className="col-12 col-md-6">
                                             <div className="form-group">
                                                 <label>Data</label>
                                                 <input type="date" className="form-control" name="data" placeholder="Data da apresentação" />
                                             </div>
                                         </div>
 
-                                        <div className="col-12 col-md-4">
+                                        <div className="col-12 col-md-6">
                                             <div className="form-group">
                                                 <label>Local</label>
                                                 <input type="text" className="form-control" name="grupo" placeholder="Local da apresentação" />
                                             </div>
                                         </div>
 
-                                        <div className="col-12 col-md-4">
+                                        <div className="col-12 col-md-6 offset-md-3 text-md-center">
                                             <div className="form-group">
                                                 <label>Tempo</label>
                                                 <input type="time" className="form-control" name="tempo" placeholder="Tempo de apresentação" />
@@ -82,7 +82,7 @@ export default class UserCrud extends Component {
 
     renderTable() {
         return (
-            <table className="table mt-4">
+            <table className="table table-hover mt-4">
                 <thead>
                     <tr>
                         <th>Data</th>
@@ -123,27 +123,28 @@ export default class UserCrud extends Component {
                                     <div class="modal-body">
                                         <div className="form">
                                             <div className="row">
-                                                <div className="col-12 col-md-4">
+                                                <div className="col-12 col-md-6">
                                                     <div className="form-group">
                                                         <label>Data</label>
                                                         <input type="date" className="form-control" name="data" placeholder="Data da apresentação" />
                                                     </div>
                                                 </div>
 
-                                                <div className="col-12 col-md-4">
+                                                <div className="col-12 col-md-6">
                                                     <div className="form-group">
                                                         <label>Local</label>
                                                         <input type="text" className="form-control" name="grupo" placeholder="Local da apresentação" />
                                                     </div>
                                                 </div>
-
-                                                <div className="col-12 col-md-4">
-                                                    <div className="form-group">
-                                                        <label>Tempo</label>
-                                                        <input type="time" className="form-control" name="tempo" placeholder="Tempo de apresentação" />
-                                                    </div>
+                                            </div>
+           
+                                            <div className="col-12 col-md-6 offset-md-3 text-md-center">
+                                                <div className="form-group">
+                                                    <label>Tempo</label>
+                                                    <input type="time" className="form-control" name="tempo" placeholder="Tempo de apresentação" />
                                                 </div>
                                             </div>
+
                                         </div>
                                     </div>
                                     <div className="modal-footer" data-toggle="modal" data-target="#editarApresentacao">
@@ -155,7 +156,7 @@ export default class UserCrud extends Component {
                         </div>
                         {/* Fim Modal editar Apresentação */}
 
-                        <button className="btn btn-danger">
+                        <button className="btn btn-danger ml-1">
                             <i className="fa fa-trash" data-toggle="modal" data-target="#excluirApresentacao"></i>
                         </button>
 
