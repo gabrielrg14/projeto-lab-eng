@@ -9,6 +9,8 @@ import Administradores from '../components/administradores/Administradores'
 import Grupos from '../components/grupos/Grupos'
 import Materiais from '../components/materiais/Materiais'
 import Musica from '../components/musica/Musicas'
+import Apresenetacoes from '../components/apresentacoes/Apresentacoes'
+
 
 export default props => 
     <Switch>
@@ -19,5 +21,6 @@ export default props =>
         <Route path='/grupos' component={Grupos} />
         <Route path='/materiais' component={Materiais} />
         <Route path='/musicas' component={Musica} />
+        <Route path='/apresentacoes' component={Apresenetacoes} />
         <Redirect from='*' to='/' />
     </Switch>
