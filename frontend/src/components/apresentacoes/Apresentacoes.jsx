@@ -1,4 +1,3 @@
-
 import React, { Component } from 'react'
 import Main from '../template/Main'
 
@@ -154,13 +153,13 @@ export default class UserCrud extends Component {
                                 </div>
                             </div>
                         </div>
-                        {/* Fim Modal editar Membro */}
+                        {/* Fim Modal editar Apresentação */}
 
                         <button className="btn btn-danger">
                             <i className="fa fa-trash" data-toggle="modal" data-target="#excluirApresentacao"></i>
                         </button>
 
-                        {/* Início Modal excluir Membro */}
+                        {/* Início Modal excluir Apresentação */}
                         <div className="modal fade" id="excluirApresentacao" role="dialog" aria-labelledby="ModalExcluirApresentacao" aria-hidden="true">
                             <div className="modal-dialog modal-dialog-centered" role="document">
                                 <div className="modal-content">
@@ -181,7 +180,7 @@ export default class UserCrud extends Component {
                                 </div>
                             </div>
                         </div>
-                        {/* Fim Modal excluir Membro */}
+                        {/* Fim Modal excluir Apresentação */}
                     </td>
                 </tr>
             )
