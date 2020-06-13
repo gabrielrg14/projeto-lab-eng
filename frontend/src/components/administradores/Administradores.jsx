@@ -17,6 +17,11 @@ export default class Administradores extends Component {
 
     state = { ...initialState }
 
+    clearStateAdministrador(e) {
+        e.preventDefault();
+        this.setState({ administrador: initialState.administrador })
+    }
+
     componentWillMount() {
         let componenteAtual = this;
         axios({
@@ -44,6 +49,14 @@ export default class Administradores extends Component {
         administrador[e.target.name] = e.target.value
         this.setState({ administrador })
         console.log(this.state.administrador);
+        console.log(e.target.name);
+        console.log(e.target.value);
+    }
+
+    handleEditAdministrador(e, dadosAdministrador) {
+        var administrador = { ...this.state.administrador }
+        administrador = dadosAdministrador;
+        this.setState({ administrador });
     }
 
     incluirNovoAdministrador(e) {
@@ -70,6 +83,54 @@ export default class Administradores extends Component {
         .catch(function(error) {
             console.log(error);
             alert("Ocorreu um erro ao cadastrar o Administrador!");
+        });
+    }
+
+    editarAdministrador(e, idAdministrador) {
+        e.preventDefault();
+        let componenteAtual = this;
+        axios({
+            method: 'put',
+            url: 'https://projetolabengapi.azurewebsites.net/api/admin/' + idAdministrador,
+            data: {
+                nome: this.state.administrador.nome,
+                email: this.state.administrador.email,
+                contato: this.state.administrador.contato,
+                senha: this.state.administrador.senha
+            },
+            headers: {
+                'Content-Type': 'application/json; charset=utf-8'
+            }
+        })
+        .then(function(response) {
+            console.log(response);
+            alert("Administrador editado com sucesso!");
+            componenteAtual.reloadPage();
+        })
+        .catch(function(error) {
+            console.log(error);
+            alert("Ocorreu um erro ao editar o administrador!");
+        });
+    }
+
+    excluirAdministrador(e, idAdministrador) {
+        e.preventDefault();
+        let componenteAtual = this;
+        axios({
+            method: 'delete',
+            url: 'https://projetolabengapi.azurewebsites.net/api/admin/' + idAdministrador,
+            headers: {
+                'Content-Type': 'application/json; charset=utf-8'
+            }
+        })
+        .then(function(response) {
+            console.log(response);
+            alert("Administrador excluido com sucesso!");
+            componenteAtual.reloadPage();
+        })
+        .catch(function(error) {
+            console.log(error);
+            alert("Ocorreu um erro ao excluir o administrador!");
         });
     }
 
@@ -135,7 +196,7 @@ export default class Administradores extends Component {
                             </div>
 
                             <div className="modal-footer">
-                                <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={e => this.clearStateAdministrador(e)}>Cancelar</button>
                                 <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={e => this.incluirNovoAdministrador(e)}>Salvar</button>
                             </div>
                         </div>
@@ -172,7 +233,7 @@ export default class Administradores extends Component {
                     <td>{administrador.email}</td>
                     <td>{administrador.contato}</td>
                     <td>
-                        <button type="button" className="btn btn-warning" data-toggle="modal" data-target={"#editarAdministrador-" + administrador.id}>
+                        <button type="button" className="btn btn-warning" data-toggle="modal" data-target={"#editarAdministrador-" + administrador.id} onClick={e => this.handleEditAdministrador(e, administrador)}>
                             <i className="fa fa-pencil"></i>
                         </button>
 
@@ -192,14 +253,14 @@ export default class Administradores extends Component {
                                                 <div className="col-12 col-md-6 text-left campo-form-modal">
                                                     <div className="form-group">
                                                         <label>Nome</label>
-                                                        <input type="text" className="form-control" name="name" value={administrador.nome} placeholder="Nome do administrador" />
+                                                        <input type="text" className="form-control" name="nome" value={this.state.administrador.nome} onChange={e => this.handleChangeAdministrador(e)} placeholder="Nome do administrador" />
                                                     </div>
                                                 </div>
 
                                                 <div className="col-12 col-md-6 text-left campo-form-modal">
                                                     <div className="form-group">
                                                         <label>Contato</label>
-                                                        <input type="text" className="form-control" name="contato" value={administrador.contato} placeholder="Contato do administrador" />
+                                                        <input type="text" className="form-control" name="contato" value={this.state.administrador.contato} onChange={e => this.handleChangeAdministrador(e)} placeholder="Contato do administrador" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -208,7 +269,7 @@ export default class Administradores extends Component {
                                                 <div className="col-12 col-md-8 offset-md-2 text-left campo-form-modal">
                                                     <div className="form-group">
                                                         <label>E-mail</label>
-                                                        <input type="email" className="form-control" name="email" value={administrador.email} placeholder="E-mail do administrador" />
+                                                        <input type="email" className="form-control" name="email" value={this.state.administrador.email} onChange={e => this.handleChangeAdministrador(e)} placeholder="E-mail do administrador" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -217,7 +278,7 @@ export default class Administradores extends Component {
                                                 <div className="col-12 col-md-8 offset-md-2 text-left text-md-center campo-form-modal">
                                                     <div className="form-group">
                                                         <label>Senha</label>
-                                                        <input type="password" className="form-control" name="senha" value={administrador.senha} placeholder="Senha do administrador" />
+                                                        <input type="password" className="form-control" name="senha" value={this.state.administrador.senha} onChange={e => this.handleChangeAdministrador(e)} placeholder="Senha do administrador" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -225,8 +286,8 @@ export default class Administradores extends Component {
                                     </div>
 
                                     <div className="modal-footer">
-                                        <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                                        <button type="button" className="btn btn-primary" data-dismiss="modal">Salvar</button>
+                                        <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={e => this.clearStateAdministrador(e)}>Cancelar</button>
+                                        <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={e => this.editarAdministrador(e, administrador.id)}>Salvar</button>
                                     </div>
                                 </div>
                             </div>
@@ -253,7 +314,7 @@ export default class Administradores extends Component {
 
                                     <div className="modal-footer">
                                         <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                                        <button type="button" className="btn btn-danger" data-dismiss="modal">Sim</button>
+                                        <button type="button" className="btn btn-danger" data-dismiss="modal" onClick={e => this.excluirAdministrador(e, administrador.id)}>Sim</button>
                                     </div>
                                 </div>
                             </div>

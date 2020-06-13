@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import axios from 'axios'
 import Main from '../template/Main'
 
 const headerProps = {
@@ -8,16 +9,31 @@ const headerProps = {
 }
 
 const initialState = {
-    membros: [
-        { nome: 'Rodrigo', grupo: 'Grupo X', mensalidade: 'Em dia', ultima_mensalidade: '2017-10-31 23:12:00' },
-        { nome: 'Gabriel', grupo: 'Grupo Y', mensalidade: 'Pendente', ultima_mensalidade: '2017-10-31 24:15:00' },
-        { nome: 'Felipe', grupo: 'Grupo Z', mensalidade: 'Atrasada', ultima_mensalidade: '2017-10-31 24:27:02' }
-    ],
+    membros: []
 }
 
 export default class Ativos extends Component {
 
     state = { ...initialState }
+
+    componentWillMount() {
+        let componenteAtual = this;
+
+        axios({
+            method: 'get',
+            url: 'https://projetolabengapi.azurewebsites.net/api/membros/desativados',
+            headers: {
+                'Content-Type': 'application/json; charset=utf-8'
+            }
+        })
+        .then(function(response) {
+            console.log(response);
+            componenteAtual.setState({ membros: response.data });
+        })
+        .catch(function(error) {
+            console.log(error);
+        });
+    }
 
     renderTopButtons() {
         return (
@@ -37,8 +53,7 @@ export default class Ativos extends Component {
                     <tr>
                         <th>Nome</th>
                         <th>Grupo</th>
-                        <th>Mensalidade</th>
-                        <th>Última mensalidade</th>
+                        <th>Status</th>
                         <th>Ações</th>
                     </tr>
                 </thead>
@@ -52,18 +67,17 @@ export default class Ativos extends Component {
     renderRows() {
         return this.state.membros.map(membro => {
             return (
-                <tr>
+                <tr key={membro.id}>
                     <td>{membro.nome}</td>
-                    <td>{membro.grupo}</td>
-                    <td>{membro.mensalidade}</td>
-                    <td>{membro.ultima_mensalidade}</td>
+                    <td>{membro.grupos.map(grupo => {return grupo.nome + ", "})}</td>
+                    <td>{membro.status}</td>
                     <td>
-                        <button type="button" className="btn btn-success" data-toggle="modal" data-target="#reativarMembro">
+                        <button type="button" className="btn btn-success" data-toggle="modal" data-target={"#reativarMembro-" + membro.id}>
                             <i className="fa fa-undo"></i>
                         </button>
 
                         {/* Início Modal reativar Membro */}
-                        <div className="modal fade" id="reativarMembro" role="dialog" aria-labelledby="ModalReativarMembro" aria-hidden="true">
+                        <div className="modal fade" id={"reativarMembro-" + membro.id} role="dialog" aria-labelledby="ModalReativarMembro" aria-hidden="true">
                             <div className="modal-dialog modal-dialog-centered" role="document">
                                 <div className="modal-content">
                                     <div className="modal-header">
@@ -85,12 +99,12 @@ export default class Ativos extends Component {
                         </div>
                         {/* Fim Modal reativar Membro */}
 
-                        <button type="button" className="btn btn-danger ml-1" data-toggle="modal" data-target="#excluirMembro">
+                        <button type="button" className="btn btn-danger ml-1" data-toggle="modal" data-target={"#excluirMembro-" + membro.id}>
                             <i className="fa fa-trash"></i>
                         </button>
 
                         {/* Início Modal excluir Membro */}
-                        <div className="modal fade" id="excluirMembro" role="dialog" aria-labelledby="ModalExcluirMembro" aria-hidden="true">
+                        <div className="modal fade" id={"excluirMembro-" + membro.id} role="dialog" aria-labelledby="ModalExcluirMembro" aria-hidden="true">
                             <div className="modal-dialog modal-dialog-centered" role="document">
                                 <div className="modal-content">
                                     <div className="modal-header">

@@ -10,6 +10,7 @@ const headerProps = {
 
 const initialState = {
     grupos: [],
+    membrosGrupo: [],
     grupo: { nome: '', modalidade: '' }
 }
 
@@ -46,6 +47,27 @@ export default class Grupos extends Component {
         console.log(this.state.grupo);
     }
 
+    listarMembrosGrupo(e, idGrupo) {
+        e.preventDefault();
+        let componenteAtual = this;
+        axios({
+            method: 'get',
+            url: 'https://projetolabengapi.azurewebsites.net/api/grupoMembro/' + idGrupo,
+            headers: {
+                'Content-Type': 'application/json; charset=utf-8'
+            }
+        })
+        .then(function(response) {
+            console.log(response);
+            componenteAtual.setState({ membrosGrupo: response.data })
+        })
+        .catch(function(error) {
+            console.log(error);
+            alert("Ocorreu um erro ao listar os membros do grupo!");
+        });
+        console.log(this.state.membrosGrupo);
+    }
+
     incluirNovoGrupo(e) {
         e.preventDefault();
         let componenteAtual = this;
@@ -68,6 +90,26 @@ export default class Grupos extends Component {
         .catch(function(error) {
             console.log(error);
             alert("Ocorreu um erro ao cadastrar o Grupo!");
+        });
+    }
+
+    excluirMembroGrupo(e, idGrupo, idMembro) {
+        let componenteAtual = this;
+        axios({
+            method: 'delete',
+            url: 'https://projetolabengapi.azurewebsites.net/api/grupoMembro/' + idGrupo + '/' + idMembro,
+            headers: {
+                'Content-Type': 'application/json; charset=utf-8'
+            }
+        })
+        .then(function(response) {
+            console.log(response);
+            alert("Membro excluido do grupo com sucesso!");
+            componenteAtual.reloadPage();
+        })
+        .catch(function(error) {
+            console.log(error);
+            alert("Ocorreu um erro ao excluir o membro do grupo!");
         });
     }
 
@@ -218,6 +260,56 @@ export default class Grupos extends Component {
                             </div>
                         </div>
                         {/* Fim Modal excluir Grupo */}
+
+                        <button type="button" className="btn btn-info ml-1" data-toggle="modal" data-target={"#listarMembrosGrupo-" + grupo.id} onClick={e => this.listarMembrosGrupo(e, grupo.id)}>
+                            <i className="fa fa-users"></i>
+                        </button>
+
+                        {/* Início Modal listar Membros do Grupo */}
+                        <div className="modal fade" id={"listarMembrosGrupo-" + grupo.id} tabIndex="-1" role="dialog" aria-labelledby="ModalListarMembros" aria-hidden="true">
+                            <div className="modal-dialog modal-dialog-centered" role="document">
+                                <div className="modal-content">
+                                    <div className="modal-header">
+                                        <h5 className="modal-title" id="ModalListarMembros"><i className="fa fa-users"></i> Lista de Membros</h5>
+                                        <button type="button" className="close" data-dismiss="modal" aria-label="Fechar">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div className="modal-body">
+                                        <table className="table table-hover mt-4 text-center">
+                                            <thead>
+                                                <tr>
+                                                    <th>Nome</th>
+                                                    <th>Status</th>
+                                                    <th>Ações</th>
+                                                </tr>
+                                            </thead>
+                                        
+                                            <tbody>
+                                                {this.state.membrosGrupo.map(membro => {
+                                                    return (
+                                                        <tr key={membro.id}>
+                                                            <td>{membro.nome}</td>
+                                                            <td>{membro.status}</td>
+                                                            <td>
+                                                                <button type="button" className="btn btn-danger ml-1" onClick={e => this.excluirMembroGrupo(e, grupo.id, membro.id)}>
+                                                                    <i className="fa fa-trash"></i>
+                                                                </button>
+                                                            </td>
+                                                        </tr>
+                                                    )
+                                                })}
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <div className="modal-footer">
+                                        <button type="button" className="btn btn-primary" data-dismiss="modal">Fechar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {/* Fim Modal listar Membros do Grupo */}
                     </td>
                 </tr>
             )
