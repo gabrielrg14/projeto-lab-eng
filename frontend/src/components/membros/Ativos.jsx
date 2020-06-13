@@ -306,7 +306,7 @@ export default class Ativos extends Component {
                 <thead>
                     <tr>
                         <th>Nome</th>
-                        <th>Grupo</th>
+                        <th>Grupo(s)</th>
                         {/* <th>Mensalidade</th> */}
                         <th>Status</th>
                         {/* <th>Última mensalidade</th> */}
@@ -325,7 +325,7 @@ export default class Ativos extends Component {
             return (
                 <tr key={membro.id}>
                     <td>{membro.nome}</td>
-                    <td>{membro.grupo}</td>
+                    <td>{membro.grupos.map(grupo => {return grupo.nome + ", "})}</td>
                     {/* <td>{membro.mensalidade}</td> */}
                     <td>{membro.status}</td>
                     {/* <td>{membro.updatedAt}</td> */}
@@ -395,7 +395,7 @@ export default class Ativos extends Component {
                                             </div>
 
                                             <div className="row">
-                                                <div className="col-12 col-md-6 campo-form-modal">
+                                                <div className="col-12 col-md-6 text-left campo-form-modal">
                                                     <div className="form-group">
                                                         <label>Grupo</label>
                                                         <select className="form-control" name="grupo" onChange={e => this.handleChangeMembro(e)}>
@@ -405,7 +405,7 @@ export default class Ativos extends Component {
                                                     </div>
                                                 </div>
 
-                                                <div className="col-12 col-md-6 campo-form-modal">
+                                                <div className="col-12 col-md-6 text-left campo-form-modal">
                                                     <div className="form-group">
                                                         <label htmlFor="status">Status</label>
                                                         {this.verificaStatusMembro(membro.status)}
