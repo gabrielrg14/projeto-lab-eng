@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import Main from '../template/Main'
+import MaskedInput from 'react-text-mask'
 
 const headerProps = {
     icon: 'user',
@@ -249,7 +250,8 @@ export default class Ativos extends Component {
                                         <div className="col-12 col-md-6 text-left campo-form-modal">
                                             <div className="form-group">
                                                 <label>CPF</label>
-                                                <input type="text" className="form-control" name="cpf" onChange={e => this.handleChangeMembro(e)} placeholder="CPF do membro" />
+                                                <MaskedInput mask={[/\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '-', /\d/, /\d/,]}
+                                                type="text" className="form-control" name="cpf" onChange={e => this.handleChangeMembro(e)} placeholder="CPF do membro" />
                                             </div>
                                         </div>
                                     </div>
@@ -258,7 +260,8 @@ export default class Ativos extends Component {
                                         <div className="col-12 col-md-6 text-left campo-form-modal">
                                             <div className="form-group">
                                                 <label>Celular</label>
-                                                <input type="text" className="form-control" name="contato" onChange={e => this.handleChangeMembro(e)} placeholder="Celular do membro" />
+                                                <MaskedInput mask={['(', /\d/, /\d/, ')', /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]} 
+                                                type="text" className="form-control" name="contato" onChange={e => this.handleChangeMembro(e)} placeholder="Celular do membro" />
                                             </div>
                                         </div>
 
@@ -281,7 +284,8 @@ export default class Ativos extends Component {
                                         <div className="col-12 col-md-6 text-left campo-form-modal">
                                             <div className="form-group">
                                                 <label>Celular do Responsável</label>
-                                                <input type="text" className="form-control" name="conta_responsavel" onChange={e => this.handleChangeMembro(e)} placeholder="Celular do responsável" />
+                                                <MaskedInput mask={['(', /\d/, /\d/, ')', /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
+                                                type="text" className="form-control" name="conta_responsavel" onChange={e => this.handleChangeMembro(e)} placeholder="Celular do responsável" />
                                             </div>
                                         </div>
                                     </div>
@@ -357,7 +361,8 @@ export default class Ativos extends Component {
                                                 <div className="col-12 col-md-6 text-left campo-form-modal">
                                                     <div className="form-group">
                                                         <label>CPF</label>
-                                                        <input type="text" className="form-control" name="cpf" value={this.state.membro.cpf} onChange={e => this.handleChangeMembro(e)} placeholder="CPF do membro" />
+                                                        <MaskedInput mask={[/\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '-', /\d/, /\d/,]} 
+                                                        type="text" className="form-control" name="cpf" value={this.state.membro.cpf} onChange={e => this.handleChangeMembro(e)} placeholder="CPF do membro" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -366,7 +371,8 @@ export default class Ativos extends Component {
                                                 <div className="col-12 col-md-6 text-left campo-form-modal">
                                                     <div className="form-group">
                                                         <label>Celular</label>
-                                                        <input type="text" className="form-control" name="contato" value={this.state.membro.contato} onChange={e => this.handleChangeMembro(e)} placeholder="Celular do membro" />
+                                                        <MaskedInput mask={['(', /\d/, /\d/, ')', /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]} 
+                                                        type="text" className="form-control" name="contato" value={this.state.membro.contato} onChange={e => this.handleChangeMembro(e)} placeholder="Celular do membro" />
                                                     </div>
                                                 </div>
 
@@ -389,7 +395,8 @@ export default class Ativos extends Component {
                                                 <div className="col-12 col-md-6 text-left campo-form-modal">
                                                     <div className="form-group">
                                                         <label>Celular do Responsável</label>
-                                                        <input type="text" className="form-control" name="conta_responsavel" value={this.state.membro.conta_responsavel} onChange={e => this.handleChangeMembro(e)} placeholder="Celular do responsável" />
+                                                        <MaskedInput mask={['(', /\d/, /\d/, ')', /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
+                                                        type="text" className="form-control" name="conta_responsavel" value={this.state.membro.conta_responsavel} onChange={e => this.handleChangeMembro(e)} placeholder="Celular do responsável" />
                                                     </div>
                                                 </div>
                                             </div>
