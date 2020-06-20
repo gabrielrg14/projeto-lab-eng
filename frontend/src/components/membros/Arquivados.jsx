@@ -16,6 +16,10 @@ export default class Ativos extends Component {
 
     state = { ...initialState }
 
+    reloadPage() {
+        document.location.reload(false);
+    }
+
     componentWillMount() {
         let componenteAtual = this;
 
@@ -32,6 +36,51 @@ export default class Ativos extends Component {
         })
         .catch(function(error) {
             console.log(error);
+        });
+    }
+
+    ativarMembro(e, idMembro) {
+        e.preventDefault();
+        let componenteAtual = this;
+        axios({
+            method: 'put',
+            url: 'https://projetolabengapi.azurewebsites.net/api/membros/' + idMembro,
+            data: {
+                status: "Ativo"
+            },
+            headers: {
+                'Content-Type': 'application/json; charset=utf-8'
+            }
+        })
+        .then(function(response) {
+            console.log(response);
+            alert("Membro ativado com sucesso!");
+            componenteAtual.reloadPage();
+        })
+        .catch(function(error) {
+            console.log(error);
+            alert("Ocorreu um erro ao ativar o membro!");
+        });
+    }
+
+    excluirMembro(e, idMembro) {
+        e.preventDefault();
+        let componenteAtual = this;
+        axios({
+            method: 'delete',
+            url: 'https://projetolabengapi.azurewebsites.net/api/membros/' + idMembro,
+            headers: {
+                'Content-Type': 'application/json; charset=utf-8'
+            }
+        })
+        .then(function(response) {
+            console.log(response);
+            alert("Membro excluido com sucesso!");
+            componenteAtual.reloadPage();
+        })
+        .catch(function(error) {
+            console.log(error);
+            alert("Ocorreu um erro ao excluir o membro!");
         });
     }
 
@@ -92,7 +141,7 @@ export default class Ativos extends Component {
 
                                     <div className="modal-footer">
                                         <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                                        <button type="button" className="btn btn-success">Sim</button>
+                                        <button type="button" className="btn btn-success" onClick={e => this.ativarMembro(e, membro.id)}>Sim</button>
                                     </div>
                                 </div>
                             </div>
@@ -119,7 +168,7 @@ export default class Ativos extends Component {
 
                                     <div className="modal-footer">
                                         <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                                        <button type="button" className="btn btn-danger">Sim</button>
+                                        <button type="button" className="btn btn-danger" onClick={e => this.excluirMembro(e, membro.id)}>Sim</button>
                                     </div>
                                 </div>
                             </div>

@@ -24,6 +24,10 @@ export default class Ativos extends Component {
         this.setState({ membro: initialState.membro })
     }
 
+    reloadPage() {
+        document.location.reload(false);
+    }
+
     componentWillMount() {
         let componenteAtual = this;
 
@@ -72,8 +76,10 @@ export default class Ativos extends Component {
         )
     }
 
-    reloadPage() {
-        document.location.reload(false);
+    handleEditMembro(e, dadosMembro) {
+        var membro = { ...this.state.membro }
+        membro = dadosMembro;
+        this.setState({ membro });
     }
 
     handleChangeMembro(e) {
@@ -81,14 +87,9 @@ export default class Ativos extends Component {
         membro[e.target.name] = e.target.value
         this.setState({ membro })
         console.log(this.state.membro);
+        console.log(this.state.membro.grupo);
         console.log(e.target.name);
         console.log(e.target.value);
-    }
-
-    handleEditMembro(e, dadosMembro) {
-        var membro = { ...this.state.membro }
-        membro = dadosMembro;
-        this.setState({ membro });
     }
 
     incluirNovoMembro(e) {
@@ -143,37 +144,41 @@ export default class Ativos extends Component {
         .then(function(response) {
             console.log(response);
             alert("Membro editado com sucesso!");
+            componenteAtual.reloadPage();
         })
         .catch(function(error) {
             console.log(error);
             alert("Ocorreu um erro ao editar o membro!");
         });
 
-        axios({
-            method: 'post',
-            url: 'https://projetolabengapi.azurewebsites.net/api/grupoMembro/' + this.state.membro.grupo + "/" + idMembro,
-            data: {
-                nome: this.state.membro.nome,
-                contato: this.state.membro.contato,
-                nome_responsavel: this.state.membro.nome_responsavel,
-                conta_responsavel: this.state.membro.conta_responsavel,
-                cpf: this.state.membro.cpf,
-                data_nascimento: this.state.membro.data_nascimento,
-                status: this.state.membro.status
-            },
-            headers: {
-                'Content-Type': 'application/json; charset=utf-8'
-            }
-        })
-        .then(function(response) {
-            console.log(response);
-            alert("Membro incluido no grupo com sucesso!");
-            componenteAtual.reloadPage();
-        })
-        .catch(function(error) {
-            console.log(error);
-            alert("Ocorreu um erro ao incluir o membro no grupo!");
-        });
+        // Se não selecionou o campo grupo membro, não faz a requisição
+        if(this.state.membro.grupo !== undefined) {
+            axios({
+                method: 'post',
+                url: 'https://projetolabengapi.azurewebsites.net/api/grupoMembro/' + this.state.membro.grupo + "/" + idMembro,
+                data: {
+                    nome: this.state.membro.nome,
+                    contato: this.state.membro.contato,
+                    nome_responsavel: this.state.membro.nome_responsavel,
+                    conta_responsavel: this.state.membro.conta_responsavel,
+                    cpf: this.state.membro.cpf,
+                    data_nascimento: this.state.membro.data_nascimento,
+                    status: this.state.membro.status
+                },
+                headers: {
+                    'Content-Type': 'application/json; charset=utf-8'
+                }
+            })
+            .then(function(response) {
+                console.log(response);
+                alert("Membro incluido no grupo com sucesso!");
+                componenteAtual.reloadPage();
+            })
+            .catch(function(error) {
+                console.log(error);
+                alert("Ocorreu um erro ao incluir o membro no grupo!");
+            });
+        }
     }
 
     excluirMembro(e, idMembro) {
@@ -332,7 +337,6 @@ export default class Ativos extends Component {
                     <td>{membro.grupos.map(grupo => {return grupo.nome + ", "})}</td>
                     {/* <td>{membro.mensalidade}</td> */}
                     <td>{membro.status}</td>
-                    {/* <td>{membro.updatedAt}</td> */}
                     <td>
                         <button type="button" className="btn btn-warning" data-toggle="modal" data-target={"#editarMembro-" + membro.id} onClick={e => this.handleEditMembro(e, membro)}>
                             <i className="fa fa-pencil"></i>
