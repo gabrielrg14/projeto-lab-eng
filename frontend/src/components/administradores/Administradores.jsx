@@ -23,6 +23,10 @@ export default class Administradores extends Component {
         this.setState({ administrador: initialState.administrador })
     }
 
+    reloadPage() {
+        document.location.reload(false);
+    }
+
     componentWillMount() {
         let componenteAtual = this;
         axios({
@@ -41,8 +45,10 @@ export default class Administradores extends Component {
         });
     }
 
-    reloadPage() {
-        document.location.reload(false);
+    handleEditAdministrador(e, dadosAdministrador) {
+        var administrador = { ...this.state.administrador }
+        administrador = dadosAdministrador;
+        this.setState({ administrador });
     }
 
     handleChangeAdministrador(e) {
@@ -52,12 +58,6 @@ export default class Administradores extends Component {
         console.log(this.state.administrador);
         console.log(e.target.name);
         console.log(e.target.value);
-    }
-
-    handleEditAdministrador(e, dadosAdministrador) {
-        var administrador = { ...this.state.administrador }
-        administrador = dadosAdministrador;
-        this.setState({ administrador });
     }
 
     incluirNovoAdministrador(e) {
@@ -296,12 +296,12 @@ export default class Administradores extends Component {
                         </div>
                         {/* Fim Modal editar Administrador */}
 
-                        <button type="button" className="btn btn-danger ml-1" data-toggle="modal" data-target={"#excluirAdministrador" + administrador.id}>
+                        <button type="button" className="btn btn-danger ml-1" data-toggle="modal" data-target={"#excluirAdministrador-" + administrador.id}>
                             <i className="fa fa-trash"></i>
                         </button>
 
                         {/* Início Modal excluir Administrador */}
-                        <div className="modal fade" id={"excluirAdministrador" + administrador.id} tabIndex="-1" role="dialog" aria-labelledby="ModalExcluirAdministrador" aria-hidden="true">
+                        <div className="modal fade" id={"excluirAdministrador-" + administrador.id} tabIndex="-1" role="dialog" aria-labelledby="ModalExcluirAdministrador" aria-hidden="true">
                             <div className="modal-dialog modal-dialog-centered" role="document">
                                 <div className="modal-content">
                                     <div className="modal-header">

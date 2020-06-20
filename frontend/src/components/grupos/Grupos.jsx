@@ -18,6 +18,15 @@ export default class Grupos extends Component {
 
     state = { ...initialState }
 
+    clearStateGrupo(e) {
+        e.preventDefault();
+        this.setState({ grupo: initialState.grupo })
+    }
+
+    reloadPage() {
+        document.location.reload(false);
+    }
+
     componentWillMount() {
         let componenteAtual = this;
         axios({
@@ -36,8 +45,10 @@ export default class Grupos extends Component {
         });
     }
 
-    reloadPage() {
-        document.location.reload(false);
+    handleEditGrupo(e, dadosGrupo) {
+        var grupo = { ...this.state.grupo }
+        grupo = dadosGrupo;
+        this.setState({ grupo });
     }
 
     handleChangeGrupo(e) {
@@ -45,6 +56,8 @@ export default class Grupos extends Component {
         grupo[e.target.name] = e.target.value
         this.setState({ grupo })
         console.log(this.state.grupo);
+        console.log(e.target.name);
+        console.log(e.target.value);
     }
 
     listarMembrosGrupo(e, idGrupo) {
@@ -94,6 +107,7 @@ export default class Grupos extends Component {
     }
 
     excluirMembroGrupo(e, idGrupo, idMembro) {
+        e.preventDefault();
         let componenteAtual = this;
         axios({
             method: 'delete',
@@ -110,6 +124,52 @@ export default class Grupos extends Component {
         .catch(function(error) {
             console.log(error);
             alert("Ocorreu um erro ao excluir o membro do grupo!");
+        });
+    }
+
+    editarGrupo(e, idGrupo) {
+        e.preventDefault();
+        let componenteAtual = this;
+        axios({
+            method: 'put',
+            url: 'https://projetolabengapi.azurewebsites.net/api/grupos/' + idGrupo,
+            data: {
+                nome: this.state.grupo.nome,
+                modalidade: this.state.grupo.modalidade
+            },
+            headers: {
+                'Content-Type': 'application/json; charset=utf-8'
+            }
+        })
+        .then(function(response) {
+            console.log(response);
+            alert("Grupo editado com sucesso!");
+            componenteAtual.reloadPage();
+        })
+        .catch(function(error) {
+            console.log(error);
+            alert("Ocorreu um erro ao editar o grupo!");
+        });
+    }
+
+    excluirGrupo(e, idGrupo) {
+        e.preventDefault();
+        let componenteAtual = this;
+        axios({
+            method: 'delete',
+            url: 'https://projetolabengapi.azurewebsites.net/api/grupos/' + idGrupo,
+            headers: {
+                'Content-Type': 'application/json; charset=utf-8'
+            }
+        })
+        .then(function(response) {
+            console.log(response);
+            alert("Grupo excluido com sucesso!");
+            componenteAtual.reloadPage();
+        })
+        .catch(function(error) {
+            console.log(error);
+            alert("Ocorreu um erro ao excluir o grupo!");
         });
     }
 
@@ -156,7 +216,7 @@ export default class Grupos extends Component {
                             </div>
 
                             <div className="modal-footer">
-                                <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={e => this.clearStateGrupo(e)}>Cancelar</button>
                                 <button type="button" className="btn btn-primary" onClick={e => this.incluirNovoGrupo(e)}>Salvar</button>
                             </div>
                         </div>
@@ -191,7 +251,7 @@ export default class Grupos extends Component {
                     <td>{grupo.nome}</td>
                     <td>{grupo.modalidade}</td>
                     <td>
-                        <button type="button" className="btn btn-warning" data-toggle="modal" data-target={"#editarGrupo" + grupo.id}>
+                        <button type="button" className="btn btn-warning" data-toggle="modal" data-target={"#editarGrupo" + grupo.id} onClick={e => this.handleEditGrupo(e, grupo)}>
                             <i className="fa fa-pencil"></i>
                         </button>
 
@@ -211,14 +271,14 @@ export default class Grupos extends Component {
                                                 <div className="col-12 col-md-6 text-left campo-form-modal">
                                                     <div className="form-group">
                                                         <label>Nome</label>
-                                                        <input type="text" className="form-control" name="nome" value={grupo.nome} placeholder="Nome do grupo" />
+                                                        <input type="text" className="form-control" name="nome" value={this.state.grupo.nome} onChange={e => this.handleChangeGrupo(e)} placeholder="Nome do grupo" />
                                                     </div>
                                                 </div>
 
                                                 <div className="col-12 col-md-6 text-left campo-form-modal">
                                                     <div className="form-group">
                                                         <label>Modalidade</label>
-                                                        <input type="text" className="form-control" name="modalidade" value={grupo.modalidade} placeholder="Modalidade do grupo" />
+                                                        <input type="text" className="form-control" name="modalidade" value={this.state.grupo.modalidade} onChange={e => this.handleChangeGrupo(e)} placeholder="Modalidade do grupo" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -226,8 +286,8 @@ export default class Grupos extends Component {
                                     </div>
 
                                     <div className="modal-footer">
-                                        <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                                        <button type="button" className="btn btn-primary" data-dismiss="modal">Salvar</button>
+                                        <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={e => this.clearStateGrupo(e)}>Cancelar</button>
+                                        <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={e => this.editarGrupo(e, grupo.id)}>Salvar</button>
                                     </div>
                                 </div>
                             </div>
@@ -254,7 +314,7 @@ export default class Grupos extends Component {
 
                                     <div className="modal-footer">
                                         <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                                        <button type="button" className="btn btn-danger" data-dismiss="modal">Sim</button>
+                                        <button type="button" className="btn btn-danger" data-dismiss="modal" onClick={e => this.excluirGrupo(e, grupo.id)}>Sim</button>
                                     </div>
                                 </div>
                             </div>
