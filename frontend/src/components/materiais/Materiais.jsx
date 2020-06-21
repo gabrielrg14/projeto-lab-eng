@@ -238,7 +238,7 @@ export default class Materiais extends Component {
         let componenteAtual = this;
         axios({
             method: 'get',
-            url: 'https://projetolabengapi.azurewebsites.net/api/material/' + idMaterial,
+            url: 'https://projetolabengapi.azurewebsites.net/api/compraMateriais/material/' + idMaterial,
             headers: {
                 'Content-Type': 'application/json; charset=utf-8'
             }

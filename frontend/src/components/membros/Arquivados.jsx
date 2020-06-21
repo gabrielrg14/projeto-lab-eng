@@ -118,7 +118,11 @@ export default class Ativos extends Component {
             return (
                 <tr key={membro.id}>
                     <td>{membro.nome}</td>
-                    <td>{membro.grupos.map(grupo => {return grupo.nome + ", "})}</td>
+                    <td>
+                        {membro.grupos.length === 0 ? "Membro sem grupo!" : membro.grupos.map(grupo => {
+                            return grupo.nome + ", " 
+                        })}
+                    </td>
                     <td>{membro.status}</td>
                     <td>
                         <button type="button" className="btn btn-success" data-toggle="modal" data-target={"#reativarMembro-" + membro.id}>
