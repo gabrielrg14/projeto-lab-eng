@@ -334,7 +334,11 @@ export default class Ativos extends Component {
             return (
                 <tr key={membro.id}>
                     <td>{membro.nome}</td>
-                    <td>{membro.grupos.map(grupo => {return grupo.nome + ", "})}</td>
+                    <td>
+                        {membro.grupos.length === 0 ? "Membro sem grupo!" : membro.grupos.map(grupo => {
+                            return grupo.nome + ", " 
+                        })}
+                    </td>
                     {/* <td>{membro.mensalidade}</td> */}
                     <td>{membro.status}</td>
                     <td>
