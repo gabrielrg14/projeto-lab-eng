@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import Main from '../template/Main'
-import MaskedInput from 'react-text-mask'
 
 const headerProps = {
     icon: 'user',
@@ -17,8 +16,9 @@ const initialState = {
 
 export default class Ativos extends Component {
 
-    state = { ...initialState }
-
+    state = { ...initialState,
+    }
+    
     clearStateMembro(e) {
         e.preventDefault();
         this.setState({ membro: initialState.membro })
@@ -46,7 +46,7 @@ export default class Ativos extends Component {
         .catch(function(error) {
             console.log(error);
         });
-
+        
         // Requisição backend para listar grupos
         axios({
             method: 'get',
@@ -63,7 +63,7 @@ export default class Ativos extends Component {
             console.log(error);
         });
     }
-
+    
     listarGrupos() {
         return (
             this.state.grupos.map(grupo => {
@@ -75,13 +75,13 @@ export default class Ativos extends Component {
             })
         )
     }
-
+    
     handleEditMembro(e, dadosMembro) {
         var membro = { ...this.state.membro }
         membro = dadosMembro;
         this.setState({ membro });
     }
-
+    
     handleChangeMembro(e) {
         const membro = { ...this.state.membro }
         membro[e.target.name] = e.target.value
@@ -96,16 +96,19 @@ export default class Ativos extends Component {
         e.preventDefault();
         let componenteAtual = this;
         console.log(this.state.membro);
-        axios({
-            method: 'post',
-            url: 'https://projetolabengapi.azurewebsites.net/api/membros',
-            data: {
-                nome: this.state.membro.nome,
-                contato: this.state.membro.contato,
-                nome_responsavel: this.state.membro.nome_responsavel,
-                conta_responsavel: this.state.membro.conta_responsavel,
-                cpf: this.state.membro.cpf,
-                data_nascimento: this.state.membro.data_nascimento
+        /*if(console.log(this.state.membro.nome)){
+            alert("Preencha os campos obrigatórios");
+        }else{*/
+            axios({
+                method: 'post',
+                url: 'https://projetolabengapi.azurewebsites.net/api/membros',
+                data: {
+                    nome: this.state.membro.nome,
+                    contato: this.state.membro.contato,
+                    nome_responsavel: this.state.membro.nome_responsavel,
+                    conta_responsavel: this.state.membro.conta_responsavel,
+                    cpf: this.state.membro.cpf,
+                    data_nascimento: this.state.membro.data_nascimento
             },
             headers: {
                 'Content-Type': 'application/json; charset=utf-8'
@@ -121,7 +124,8 @@ export default class Ativos extends Component {
             alert("Ocorreu um erro ao cadastrar o membro!");
         });
     }
-
+    //}
+    
     editarMembro(e, idMembro) {
         e.preventDefault();
         let componenteAtual = this;
@@ -243,20 +247,19 @@ export default class Ativos extends Component {
                                 </button>
                             </div>
                             <div className="modal-body">
-                                <div className="form">
+                                <div className="form" onClick={this.onClick} noValidate>
                                     <div className="row">
                                         <div className="col-12 col-md-6 text-left campo-form-modal">
                                             <div className="form-group">
-                                                <label>Nome</label>
+                                                <label>Nome*</label>
                                                 <input type="text" className="form-control" name="nome" onChange={e => this.handleChangeMembro(e)} placeholder="Nome do membro" />
                                             </div>
                                         </div>
 
                                         <div className="col-12 col-md-6 text-left campo-form-modal">
                                             <div className="form-group">
-                                                <label>CPF</label>
-                                                <MaskedInput mask={[/\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '-', /\d/, /\d/,]}
-                                                type="text" className="form-control" name="cpf" onChange={e => this.handleChangeMembro(e)} placeholder="CPF do membro" />
+                                                <label>CPF*</label>
+                                                <input type="text" className="form-control" name="cpf" onChange={e => this.handleChangeMembro(e)} placeholder="CPF do membro" />
                                             </div>
                                         </div>
                                     </div>
@@ -264,15 +267,14 @@ export default class Ativos extends Component {
                                     <div className="row">
                                         <div className="col-12 col-md-6 text-left campo-form-modal">
                                             <div className="form-group">
-                                                <label>Celular</label>
-                                                <MaskedInput mask={['(', /\d/, /\d/, ')', /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]} 
-                                                type="text" className="form-control" name="contato" onChange={e => this.handleChangeMembro(e)} placeholder="Celular do membro" />
+                                                <label>Celular*</label>
+                                                <input type="text" className="form-control" name="contato" onChange={e => this.handleChangeMembro(e)} placeholder="Celular do membro" />
                                             </div>
                                         </div>
 
                                         <div className="col-12 col-md-6 text-left campo-form-modal">
                                             <div className="form-group">
-                                                <label>Data de Nascimento</label>
+                                                <label>Data de Nascimento*</label>
                                                 <input type="date" className="form-control" name="data_nascimento" onChange={e => this.handleChangeMembro(e)} />
                                             </div>
                                         </div>
@@ -289,9 +291,14 @@ export default class Ativos extends Component {
                                         <div className="col-12 col-md-6 text-left campo-form-modal">
                                             <div className="form-group">
                                                 <label>Celular do Responsável</label>
-                                                <MaskedInput mask={['(', /\d/, /\d/, ')', /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
-                                                type="text" className="form-control" name="conta_responsavel" onChange={e => this.handleChangeMembro(e)} placeholder="Celular do responsável" />
+                                                <input type="text" className="form-control" name="conta_responsavel" onChange={e => this.handleChangeMembro(e)} placeholder="Celular do responsável" />
                                             </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="row">
+                                        <div className="col-12 col-md-8 text-left">
+                                            <p style={{color: "red", fontSize: 15}}>(*)Campo OBRIGATÓRIO</p>
                                         </div>
                                     </div>
                                 </div>
@@ -369,8 +376,7 @@ export default class Ativos extends Component {
                                                 <div className="col-12 col-md-6 text-left campo-form-modal">
                                                     <div className="form-group">
                                                         <label>CPF</label>
-                                                        <MaskedInput mask={[/\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '-', /\d/, /\d/,]} 
-                                                        type="text" className="form-control" name="cpf" value={this.state.membro.cpf} onChange={e => this.handleChangeMembro(e)} placeholder="CPF do membro" />
+                                                        <input type="text" className="form-control" name="cpf" value={this.state.membro.cpf} onChange={e => this.handleChangeMembro(e)} placeholder="CPF do membro" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -379,8 +385,7 @@ export default class Ativos extends Component {
                                                 <div className="col-12 col-md-6 text-left campo-form-modal">
                                                     <div className="form-group">
                                                         <label>Celular</label>
-                                                        <MaskedInput mask={['(', /\d/, /\d/, ')', /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]} 
-                                                        type="text" className="form-control" name="contato" value={this.state.membro.contato} onChange={e => this.handleChangeMembro(e)} placeholder="Celular do membro" />
+                                                        <input type="text" className="form-control" name="contato" value={this.state.membro.contato} onChange={e => this.handleChangeMembro(e)} placeholder="Celular do membro" />
                                                     </div>
                                                 </div>
 
@@ -403,7 +408,7 @@ export default class Ativos extends Component {
                                                 <div className="col-12 col-md-6 text-left campo-form-modal">
                                                     <div className="form-group">
                                                         <label>Celular do Responsável</label>
-                                                        <MaskedInput mask={['(', /\d/, /\d/, ')', /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
+                                                        <input /*mask={['(', /\d/, /\d/, ')', /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]*/}
                                                         type="text" className="form-control" name="conta_responsavel" value={this.state.membro.conta_responsavel} onChange={e => this.handleChangeMembro(e)} placeholder="Celular do responsável" />
                                                     </div>
                                                 </div>

@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import Main from '../template/Main'
-import MaskedInput from 'react-text-mask'
 
 const headerProps = {
     icon: 'suitcase',
@@ -171,8 +170,7 @@ export default class Administradores extends Component {
                                         <div className="col-12 col-md-6 text-left campo-form-modal">
                                             <div className="form-group">
                                                 <label>Contato</label>
-                                                <MaskedInput mask={['(', /\d/, /\d/, ')', /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]} 
-                                                type="text" className="form-control" name="contato" onChange={e => this.handleChangeAdministrador(e)} placeholder="Contato do administrador" />
+                                                <input type="text" className="form-control" name="contato" onChange={e => this.handleChangeAdministrador(e)} placeholder="Contato do administrador" />
                                             </div>
                                         </div>
                                     </div>
@@ -262,7 +260,7 @@ export default class Administradores extends Component {
                                                 <div className="col-12 col-md-6 text-left campo-form-modal">
                                                     <div className="form-group">
                                                         <label>Contato</label>
-                                                        <MaskedInput mask={['(', /\d/, /\d/, ')', /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]} type="text" className="form-control" name="contato" value={this.state.administrador.contato} onChange={e => this.handleChangeAdministrador(e)} placeholder="Contato do administrador" />
+                                                        <input type="text" className="form-control" name="contato" value={this.state.administrador.contato} onChange={e => this.handleChangeAdministrador(e)} placeholder="Contato do administrador" />
                                                     </div>
                                                 </div>
                                             </div>
