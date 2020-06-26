@@ -408,7 +408,7 @@ export default class Ativos extends Component {
                                                 <div className="col-12 col-md-6 text-left campo-form-modal">
                                                     <div className="form-group">
                                                         <label>Celular do Responsável</label>
-                                                        <input /*mask={['(', /\d/, /\d/, ')', /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]*/}
+                                                        <input /*mask={['(', /\d/, /\d/, ')', /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}*/
                                                         type="text" className="form-control" name="conta_responsavel" value={this.state.membro.conta_responsavel} onChange={e => this.handleChangeMembro(e)} placeholder="Celular do responsável" />
                                                     </div>
                                                 </div>
