@@ -495,7 +495,7 @@ export default class Materiais extends Component {
                                                 <div className="col-12 col-md-6 text-left campo-form-modal">
                                                     <div className="form-group">
                                                         <label>Nome</label>
-                                                        <input type="text" className="form-control" name="nome" value={this.state.material.nome} onChange={e => this.handleChangeMaterial(e)} placeholder="Nome do grupo" />
+                                                        <input type="text" className="form-control" name="nome" value={this.state.material.nome} onChange={e => this.handleChangeMaterial(e)} placeholder="Nome do material" />
                                                     </div>
                                                 </div>
 
@@ -573,7 +573,6 @@ export default class Materiais extends Component {
                                             <thead>
                                                 <tr>
                                                     <th>Administrador</th>
-                                                    <th>Material</th>
                                                     <th>Quantidade</th>
                                                     <th>Fornecedor</th>
                                                     <th>Valor</th>
@@ -587,7 +586,6 @@ export default class Materiais extends Component {
                                                     return (
                                                         <tr key={compra.id}>
                                                             <td>{compra.admin}</td>
-                                                            <td>{compra.material}</td>
                                                             <td>{compra.quantidade}</td>
                                                             <td>{compra.fornecedor}</td>
                                                             <td>{compra.valor}</td>

@@ -309,6 +309,8 @@ export default class Grupos extends Component {
                                         </button>
                                     </div>
                                     <div className="modal-body">
+                                        <b>Esta é uma ação irreversível!<br/> 
+                                        Todos os membros serão removidos deste grupo!</b><br/><br/>
                                         Tem certeza que deseja excluir o grupo {grupo.nome}?
                                     </div>
 

@@ -13,6 +13,7 @@ export default class Nav extends Component {
 
     logout() {
         localStorage.removeItem('logado');
+        document.location.reload(false);
         return <App />
     }
 
@@ -72,9 +73,33 @@ export default class Nav extends Component {
                         <i className="fa fa-eye"></i> Apresentações
                     </Link>
 
-                    <a className="text-sm-center text-md-left" href="" onClickCapture={() => this.logout()}>
+                    <a className="text-sm-center text-md-left" href="" data-toggle="modal" data-target="#ConfirmarLogout">
                         <i className="fa fa-sign-out"></i> Sair
                     </a>
+
+                    {/* Início Modal Confirmar Logout */}
+                    <div className="modal fade" id="ConfirmarLogout" tabIndex="-1" role="dialog" aria-labelledby="ModalConfirmar Logout" aria-hidden="true">
+                        <div className="modal-dialog modal-dialog-centered" role="document">
+                            <div className="modal-content">
+                                <div className="modal-header">
+                                    <h5 className="modal-title" id="ModalConfirmar Logout"><i className="fa fa-sign-out"></i> Logout</h5>
+                                    <button type="button" className="close" data-dismiss="modal" aria-label="Fechar">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div className="modal-body">
+                                    Deseja mesmo sair do sistema?
+                                </div>
+
+                                <div className="modal-footer">
+                                    <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                    <button type="button" className="btn btn-primary" data-dismiss="modal" onClickCapture={() => this.logout()}>Sim</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {/* Fim Modal confirmar Logout */}
+
                 </nav>
             </aside>
         )
