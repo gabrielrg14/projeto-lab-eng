@@ -163,27 +163,32 @@ export default class Materiais extends Component {
     incluirNovoMaterial(e) {
         e.preventDefault();
         let componenteAtual = this;
-        axios({
-            method: 'post',
-            url: 'https://projetolabengapi.azurewebsites.net/api/materiais',
-            data: {
-                nome: this.state.material.nome,
-                quantidade: this.state.material.quantidade,
-                descricao: this.state.material.descricao
-            },
-            headers: {
-                'Content-Type': 'application/json; charset=utf-8'
-            }
-        })
-        .then(function(response) {
-            // console.log(response);
-            alert("Material cadastrado com sucesso!");
-            componenteAtual.reloadPage();
-        })
-        .catch(function(error) {
-            console.log(error);
-            alert("Ocorreu um erro ao cadastrar o material!");
-        });
+        if ((!this.state.material.nome) || (!this.state.material.quantidade) || 
+            (!this.state.material.descricao)){
+            alert("Campos obrigatórios não preenchidos.")
+        }else{
+            axios({
+                method: 'post',
+                url: 'https://projetolabengapi.azurewebsites.net/api/materiais',
+                data: {
+                    nome: this.state.material.nome,
+                    quantidade: this.state.material.quantidade,
+                    descricao: this.state.material.descricao
+                },
+                headers: {
+                    'Content-Type': 'application/json; charset=utf-8'
+                }
+            })
+            .then(function(response) {
+                // console.log(response);
+                alert("Material cadastrado com sucesso!");
+                componenteAtual.reloadPage();
+            })
+            .catch(function(error) {
+                console.log(error);
+                alert("Ocorreu um erro ao cadastrar o material!");
+            });
+        }
     }
 
     editarMaterial(e, idMaterial) {
@@ -294,6 +299,11 @@ export default class Materiais extends Component {
                                             </div>
                                         </div>
                                     </div>
+                                    <div className="row">
+                                        <div className="col-12 col-md-8 text-left">
+                                            <p style={{color: "red", fontSize: 15}}>Todo os campos são OBRIGATÓRIO</p>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
@@ -374,6 +384,12 @@ export default class Materiais extends Component {
                                                 <label>Data da compra</label>
                                                 <input type="date" className="form-control" name="data" onChange={e => this.handleChangeCompra(e)} />
                                             </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="row">
+                                        <div className="col-12 col-md-8 text-left">
+                                            <p style={{color: "red", fontSize: 15}}>Todo os campos são OBRIGATÓRIO</p>
                                         </div>
                                     </div>
                                 </div>

@@ -96,9 +96,11 @@ export default class Ativos extends Component {
         e.preventDefault();
         let componenteAtual = this;
         console.log(this.state.membro);
-        /*if(console.log(this.state.membro.nome)){
-            alert("Preencha os campos obrigatórios");
-        }else{*/
+        if ((!this.state.membro.nome) || (!this.state.membro.cpf) || 
+            (!this.state.membro.contato) || (!this.state.membro.data_nascimento)){
+            alert("Campos obrigatórios não preenchidos.")
+        }
+        else{
             axios({
                 method: 'post',
                 url: 'https://projetolabengapi.azurewebsites.net/api/membros',
@@ -109,11 +111,11 @@ export default class Ativos extends Component {
                     conta_responsavel: this.state.membro.conta_responsavel,
                     cpf: this.state.membro.cpf,
                     data_nascimento: this.state.membro.data_nascimento
-            },
+                },
             headers: {
                 'Content-Type': 'application/json; charset=utf-8'
             }
-        })
+            })
         .then(function(response) {
             // console.log(response);
             alert("Membro cadastrado com sucesso!");
@@ -122,9 +124,9 @@ export default class Ativos extends Component {
         .catch(function(error) {
             console.log(error);
             alert("Ocorreu um erro ao cadastrar o membro!");
-        });
+            });
+        }   
     }
-    //}
     
     editarMembro(e, idMembro) {
         e.preventDefault();

@@ -84,17 +84,20 @@ export default class Grupos extends Component {
     incluirNovoGrupo(e) {
         e.preventDefault();
         let componenteAtual = this;
-        axios({
-            method: 'post',
-            url: 'https://projetolabengapi.azurewebsites.net/api/grupos',
-            data: {
-                nome: this.state.grupo.nome,
+        if ((!this.state.grupo.nome) || (!this.state.grupo.modalidade)){
+            alert("Campos obrigatórios não preenchidos.")
+        }else{
+            axios({
+                method: 'post',
+                url: 'https://projetolabengapi.azurewebsites.net/api/grupos',
+                data: {
+                    nome: this.state.grupo.nome,
                 modalidade: this.state.grupo.modalidade
             },
             headers: {
                 'Content-Type': 'application/json; charset=utf-8'
             }
-        })
+            })
         .then(function(response) {
             // console.log(response);
             alert("Grupo cadastrado com sucesso!");
@@ -104,6 +107,7 @@ export default class Grupos extends Component {
             console.log(error);
             alert("Ocorreu um erro ao cadastrar o Grupo!");
         });
+        }
     }
 
     excluirMembroGrupo(e, idGrupo, idMembro) {
@@ -210,6 +214,11 @@ export default class Grupos extends Component {
                                                 <label>Modalidade</label>
                                                 <input type="text" className="form-control" name="modalidade" onChange={e => this.handleChangeGrupo(e)} placeholder="Modalidade do grupo" />
                                             </div>
+                                        </div>
+                                    </div>
+                                    <div className="row">
+                                        <div className="col-12 col-md-8 text-left">
+                                            <p style={{color: "red", fontSize: 15}}>Todo os campos são OBRIGATÓRIO</p>
                                         </div>
                                     </div>
                                 </div>

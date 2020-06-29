@@ -62,28 +62,33 @@ export default class Administradores extends Component {
     incluirNovoAdministrador(e) {
         e.preventDefault();
         let componenteAtual = this;
-        axios({
-            method: 'post',
-            url: 'https://projetolabengapi.azurewebsites.net/api/admin/register',
-            data: {
-                nome: this.state.administrador.nome,
-                email: this.state.administrador.email,
-                contato: this.state.administrador.contato,
-                senha: this.state.administrador.senha
-            },
-            headers: {
-                'Content-Type': 'application/json; charset=utf-8'
-            }
-        })
-        .then(function(response) {
-            // console.log(response);
-            alert("Administrador cadastrado com sucesso!");
-            componenteAtual.reloadPage();
-        })
-        .catch(function(error) {
-            console.log(error);
-            alert("Ocorreu um erro ao cadastrar o Administrador!");
-        });
+        if ((!this.state.administrador.nome) || (!this.state.administrador.contato) || 
+            (!this.state.administrador.email) || (!this.state.administrador.senha)){
+            alert("Campos obrigatórios não preenchidos.")
+        }else{
+            axios({
+                method: 'post',
+                url: 'https://projetolabengapi.azurewebsites.net/api/admin/register',
+                data: {
+                    nome: this.state.administrador.nome,
+                    email: this.state.administrador.email,
+                    contato: this.state.administrador.contato,
+                    senha: this.state.administrador.senha
+                },
+                headers: {
+                    'Content-Type': 'application/json; charset=utf-8'
+                }
+            })
+            .then(function(response) {
+                // console.log(response);
+                alert("Administrador cadastrado com sucesso!");
+                componenteAtual.reloadPage();
+            })
+            .catch(function(error) {
+                console.log(error);
+                alert("Ocorreu um erro ao cadastrar o Administrador!");
+            });
+        }
     }
 
     editarAdministrador(e, idAdministrador) {
@@ -190,6 +195,12 @@ export default class Administradores extends Component {
                                                 <label>Senha</label>
                                                 <input type="password" className="form-control" name="senha" onChange={e => this.handleChangeAdministrador(e)} placeholder="Senha do administrador" />
                                             </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="row">
+                                        <div className="col-12 col-md-8 text-left">
+                                            <p style={{color: "red", fontSize: 15}}>Todo os campos são OBRIGATÓRIO</p>
                                         </div>
                                     </div>
                                 </div>
