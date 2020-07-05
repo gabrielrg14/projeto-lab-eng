@@ -1,24 +1,24 @@
 const Sequelize = require('sequelize');
 const db = require('../config/database');
 
-const MembroGrupo = db.define(
-  'membro_grupo',
+const MusicaGrupo = db.define(
+  'musica_grupo',
   {
+    musica_id: {
+      type: Sequelize.INTEGER,
+      primaryKey: true,
+      onDelete: 'CASCADE',
+      references: {
+        model: 'musica',
+        key: 'id',
+      },
+    },
     grupo_id: {
       type: Sequelize.INTEGER,
       primaryKey: true,
       onDelete: 'CASCADE',
       references: {
         model: 'grupo',
-        key: 'id',
-      },
-    },
-    membro_id: {
-      type: Sequelize.INTEGER,
-      primaryKey: true,
-      onDelete: 'CASCADE',
-      references: {
-        model: 'membro',
         key: 'id',
       },
     },
@@ -29,4 +29,4 @@ const MembroGrupo = db.define(
   }
 );
 
-module.exports = MembroGrupo;
+module.exports = MusicaGrupo;

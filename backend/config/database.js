@@ -1,5 +1,4 @@
 const Sequelize = require('sequelize');
-const fs = require('fs');
 
 module.exports = new Sequelize(
   process.env.DATABASE,
