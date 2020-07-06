@@ -160,15 +160,21 @@ router.delete('/:apresentacaoId', ensureAuthenticated, async (req, res) => {
     return res.status(400).json(errors);
   }
 
-  const deleteMusicaApresentacao = await MusicaApresentacao.destroy({
+  const musicasDaApresentacao = await MusicaApresentacao.findAll({
     where: { apresentacao_id: apresentacaoId },
   });
 
-  if (!deleteMusicaApresentacao) {
-    errors.push({
-      message: 'Erro ao excluir conexão entre musica e apresentacao.',
+  if (musicasDaApresentacao && musicasDaApresentacao.length > 0) {
+    const deleteMusicaApresentacao = await MusicaApresentacao.destroy({
+      where: { apresentacao_id: apresentacaoId },
     });
-    return res.status(500).json(errors);
+
+    if (!deleteMusicaApresentacao) {
+      errors.push({
+        message: 'Erro ao excluir conexão entre musica e apresentacao.',
+      });
+      return res.status(500).json(errors);
+    }
   }
 
   const deleteApresentacao = await Apresentacao.destroy({
