@@ -31,7 +31,7 @@ export default class Grupos extends Component {
         let componenteAtual = this;
         axios({
             method: 'get',
-            url: 'https://projetolabengapi.azurewebsites.net/api/grupos',
+            url: 'http://localhost:5000/api/grupos',
             headers: {
                 'Content-Type': 'application/json; charset=utf-8'
             }
@@ -65,7 +65,7 @@ export default class Grupos extends Component {
         let componenteAtual = this;
         axios({
             method: 'get',
-            url: 'https://projetolabengapi.azurewebsites.net/api/grupoMembro/' + idGrupo,
+            url: 'http://localhost:5000/api/grupoMembro/' + idGrupo,
             headers: {
                 'Content-Type': 'application/json; charset=utf-8'
             }
@@ -89,7 +89,7 @@ export default class Grupos extends Component {
         }else{
             axios({
                 method: 'post',
-                url: 'https://projetolabengapi.azurewebsites.net/api/grupos',
+                url: 'http://localhost:5000/api/grupos',
                 data: {
                     nome: this.state.grupo.nome,
                 modalidade: this.state.grupo.modalidade
@@ -115,7 +115,7 @@ export default class Grupos extends Component {
         let componenteAtual = this;
         axios({
             method: 'delete',
-            url: 'https://projetolabengapi.azurewebsites.net/api/grupoMembro/' + idGrupo + '/' + idMembro,
+            url: 'http://localhost:5000/api/grupoMembro/' + idGrupo + '/' + idMembro,
             headers: {
                 'Content-Type': 'application/json; charset=utf-8'
             }
@@ -136,7 +136,7 @@ export default class Grupos extends Component {
         let componenteAtual = this;
         axios({
             method: 'put',
-            url: 'https://projetolabengapi.azurewebsites.net/api/grupos/' + idGrupo,
+            url: 'http://localhost:5000/api/grupos/' + idGrupo,
             data: {
                 nome: this.state.grupo.nome,
                 modalidade: this.state.grupo.modalidade
@@ -161,7 +161,7 @@ export default class Grupos extends Component {
         let componenteAtual = this;
         axios({
             method: 'delete',
-            url: 'https://projetolabengapi.azurewebsites.net/api/grupos/' + idGrupo,
+            url: 'http://localhost:5000/api/grupos/' + idGrupo,
             headers: {
                 'Content-Type': 'application/json; charset=utf-8'
             }

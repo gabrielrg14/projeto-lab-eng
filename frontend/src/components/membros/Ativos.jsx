@@ -16,8 +16,7 @@ const initialState = {
 
 export default class Ativos extends Component {
 
-    state = { ...initialState,
-    }
+    state = { ...initialState }
     
     clearStateMembro(e) {
         e.preventDefault();
@@ -34,7 +33,7 @@ export default class Ativos extends Component {
         // Requisição backend para listar membros
         axios({
             method: 'get',
-            url: 'https://projetolabengapi.azurewebsites.net/api/membros',
+            url: 'http://localhost:5000/api/membros',
             headers: {
                 'Content-Type': 'application/json; charset=utf-8'
             }
@@ -50,7 +49,7 @@ export default class Ativos extends Component {
         // Requisição backend para listar grupos
         axios({
             method: 'get',
-            url: 'https://projetolabengapi.azurewebsites.net/api/grupos',
+            url: 'http://localhost:5000/api/grupos',
             headers: {
                 'Content-Type': 'application/json; charset=utf-8'
             }
@@ -84,8 +83,8 @@ export default class Ativos extends Component {
     
     handleChangeMembro(e) {
         const membro = { ...this.state.membro }
-        membro[e.target.name] = e.target.value
-        this.setState({ membro })
+        membro[e.target.name] = e.target.value;
+        this.setState({ membro });
         console.log(this.state.membro);
         console.log(this.state.membro.grupo);
         console.log(e.target.name);
@@ -103,7 +102,7 @@ export default class Ativos extends Component {
         else{
             axios({
                 method: 'post',
-                url: 'https://projetolabengapi.azurewebsites.net/api/membros',
+                url: 'http://localhost:5000/api/membros',
                 data: {
                     nome: this.state.membro.nome,
                     contato: this.state.membro.contato,
@@ -133,7 +132,7 @@ export default class Ativos extends Component {
         let componenteAtual = this;
         axios({
             method: 'put',
-            url: 'https://projetolabengapi.azurewebsites.net/api/membros/' + idMembro,
+            url: 'http://localhost:5000/api/membros/' + idMembro,
             data: {
                 nome: this.state.membro.nome,
                 contato: this.state.membro.contato,
@@ -161,7 +160,7 @@ export default class Ativos extends Component {
         if(this.state.membro.grupo !== undefined) {
             axios({
                 method: 'post',
-                url: 'https://projetolabengapi.azurewebsites.net/api/grupoMembro/' + this.state.membro.grupo + "/" + idMembro,
+                url: 'http://localhost:5000/api/grupoMembro/' + this.state.membro.grupo + "/" + idMembro,
                 data: {
                     nome: this.state.membro.nome,
                     contato: this.state.membro.contato,
@@ -192,7 +191,7 @@ export default class Ativos extends Component {
         let componenteAtual = this;
         axios({
             method: 'delete',
-            url: 'https://projetolabengapi.azurewebsites.net/api/membros/' + idMembro,
+            url: 'http://localhost:5000/api/membros/' + idMembro,
             headers: {
                 'Content-Type': 'application/json; charset=utf-8'
             }

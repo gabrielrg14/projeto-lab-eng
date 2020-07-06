@@ -61,9 +61,9 @@ export default class Nav extends Component {
                         <i className="fa fa-puzzle-piece"></i> Materiais
                     </Link>
 
-                    <Link className="text-sm-center text-md-left" to="/formacoes">
+                    {/* <Link className="text-sm-center text-md-left" to="/formacoes">
                         <i className="fa fa-th-large"></i> Formações
-                    </Link>
+                    </Link> */}
 
                     <Link className="text-sm-center text-md-left" to="/musicas">
                         <i className="fa fa-music"></i> Músicas

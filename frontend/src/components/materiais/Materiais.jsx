@@ -39,7 +39,7 @@ export default class Materiais extends Component {
         let componenteAtual = this;
         axios({
             method: 'get',
-            url: 'https://projetolabengapi.azurewebsites.net/api/materiais',
+            url: 'http://localhost:5000/api/materiais',
             headers: {
                 'Content-Type': 'application/json; charset=utf-8'
             }
@@ -54,7 +54,7 @@ export default class Materiais extends Component {
 
         axios({
             method: 'get',
-            url: 'https://projetolabengapi.azurewebsites.net/api/admin',
+            url: 'http://localhost:5000/api/admin',
             headers: {
                 'Content-Type': 'application/json; charset=utf-8'
             }
@@ -69,7 +69,7 @@ export default class Materiais extends Component {
 
         axios({
             method: 'get',
-            url: 'https://projetolabengapi.azurewebsites.net/api/compraMateriais',
+            url: 'http://localhost:5000/api/compraMateriais',
             headers: {
                 'Content-Type': 'application/json; charset=utf-8'
             }
@@ -121,7 +121,7 @@ export default class Materiais extends Component {
         let componenteAtual = this;
         axios({
             method: 'post',
-            url: 'https://projetolabengapi.azurewebsites.net/api/compraMateriais',
+            url: 'http://localhost:5000/api/compraMateriais',
             data: {
                 admin_id: this.state.compra.admin_id,
                 material_id: this.state.compra.material_id,
@@ -169,7 +169,7 @@ export default class Materiais extends Component {
         }else{
             axios({
                 method: 'post',
-                url: 'https://projetolabengapi.azurewebsites.net/api/materiais',
+                url: 'http://localhost:5000/api/materiais',
                 data: {
                     nome: this.state.material.nome,
                     quantidade: this.state.material.quantidade,
@@ -196,7 +196,7 @@ export default class Materiais extends Component {
         let componenteAtual = this;
         axios({
             method: 'put',
-            url: 'https://projetolabengapi.azurewebsites.net/api/materiais/' + idMaterial,
+            url: 'http://localhost:5000/api/materiais/' + idMaterial,
             data: {
                 nome: this.state.material.nome,
                 quantidade: this.state.material.quantidade,
@@ -222,7 +222,7 @@ export default class Materiais extends Component {
         let componenteAtual = this;
         axios({
             method: 'delete',
-            url: 'https://projetolabengapi.azurewebsites.net/api/materiais/' + idMaterial,
+            url: 'http://localhost:5000/api/materiais/' + idMaterial,
             headers: {
                 'Content-Type': 'application/json; charset=utf-8'
             }
@@ -243,7 +243,7 @@ export default class Materiais extends Component {
         let componenteAtual = this;
         axios({
             method: 'get',
-            url: 'https://projetolabengapi.azurewebsites.net/api/compraMateriais/material/' + idMaterial,
+            url: 'http://localhost:5000/api/compraMateriais/material/' + idMaterial,
             headers: {
                 'Content-Type': 'application/json; charset=utf-8'
             }
@@ -295,7 +295,7 @@ export default class Materiais extends Component {
                                         <div className="col-12 text-left campo-form-modal">
                                             <div className="form-group">
                                                 <label>Descrição</label>
-                                                <textarea type="textarea" className="form-control" name="descricao" onChange={e => this.handleChangeMaterial(e)} placeholder="Descrição do material"></textarea>
+                                                <textarea type="text" className="form-control" name="descricao" onChange={e => this.handleChangeMaterial(e)} placeholder="Descrição do material"></textarea>
                                             </div>
                                         </div>
                                     </div>
