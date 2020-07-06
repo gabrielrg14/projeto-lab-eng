@@ -34,7 +34,7 @@ export default class Login extends Component {
             let componenteAtual = this;
             axios({
                 method: 'post',
-                url: 'https://projetolabengapi.azurewebsites.net/api/admin/login',
+                url: 'http://localhost:5000/api/admin/login',
                 data: {
                     email,
                     senha

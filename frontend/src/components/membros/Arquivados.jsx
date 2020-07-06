@@ -25,7 +25,7 @@ export default class Ativos extends Component {
 
         axios({
             method: 'get',
-            url: 'https://projetolabengapi.azurewebsites.net/api/membros/desativados',
+            url: 'http://localhost:5000/api/membros/desativados',
             headers: {
                 'Content-Type': 'application/json; charset=utf-8'
             }
@@ -44,7 +44,7 @@ export default class Ativos extends Component {
         let componenteAtual = this;
         axios({
             method: 'put',
-            url: 'https://projetolabengapi.azurewebsites.net/api/membros/' + idMembro,
+            url: 'http://localhost:5000/api/membros/' + idMembro,
             data: {
                 status: "Ativo"
             },
@@ -68,7 +68,7 @@ export default class Ativos extends Component {
         let componenteAtual = this;
         axios({
             method: 'delete',
-            url: 'https://projetolabengapi.azurewebsites.net/api/membros/' + idMembro,
+            url: 'http://localhost:5000/api/membros/' + idMembro,
             headers: {
                 'Content-Type': 'application/json; charset=utf-8'
             }

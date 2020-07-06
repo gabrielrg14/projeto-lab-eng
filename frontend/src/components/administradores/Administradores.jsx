@@ -30,7 +30,7 @@ export default class Administradores extends Component {
         let componenteAtual = this;
         axios({
             method: 'get',
-            url: 'https://projetolabengapi.azurewebsites.net/api/admin',
+            url: 'http://localhost:5000/api/admin',
             headers: {
                 'Content-Type': 'application/json; charset=utf-8'
             }
@@ -68,7 +68,7 @@ export default class Administradores extends Component {
         }else{
             axios({
                 method: 'post',
-                url: 'https://projetolabengapi.azurewebsites.net/api/admin/register',
+                url: 'http://localhost:5000/api/admin/register',
                 data: {
                     nome: this.state.administrador.nome,
                     email: this.state.administrador.email,
@@ -96,7 +96,7 @@ export default class Administradores extends Component {
         let componenteAtual = this;
         axios({
             method: 'put',
-            url: 'https://projetolabengapi.azurewebsites.net/api/admin/' + idAdministrador,
+            url: 'http://localhost:5000/api/admin/' + idAdministrador,
             data: {
                 nome: this.state.administrador.nome,
                 email: this.state.administrador.email,
@@ -123,7 +123,7 @@ export default class Administradores extends Component {
         let componenteAtual = this;
         axios({
             method: 'delete',
-            url: 'https://projetolabengapi.azurewebsites.net/api/admin/' + idAdministrador,
+            url: 'http://localhost:5000/api/admin/' + idAdministrador,
             headers: {
                 'Content-Type': 'application/json; charset=utf-8'
             }
