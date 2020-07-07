@@ -99,14 +99,16 @@ export default class UserCrud extends Component {
 
     addOrRemoveMusica(idMusica) {
         const apresentacao = { ...this.state.apresentacao }
-        var index = apresentacao.musicas.indexOf(idMusica);
-        console.log(index);
 
-        if (index !== -1) {
-            apresentacao.musicas.splice(idMusica);
+        var index = apresentacao.musicas.indexOf(idMusica);
+
+        if ( index > -1) {
+            apresentacao.musicas.splice(index, 1);
         } else {
             apresentacao.musicas.push(idMusica);
         }
+        console.log(apresentacao.musicas)
+
         this.setState({ apresentacao });
         console.log(this.state.apresentacao.musicas);
     }
@@ -205,20 +207,20 @@ export default class UserCrud extends Component {
                 </button>
                 <button className="btn btn-dark ml-1">
                     Ações
-                    <i class="fa fa-caret-down ml-3"></i>
+                    <i className="fa fa-caret-down ml-3"></i>
                 </button>
 
                 {/* Início Modal nova Apresentação */}
-                <div class="modal fade" id="inserirNovaApresentacao" tabindex="-1" role="dialog" aria-labelledby="ModalNovaApresentacao" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="ModalNovaApresentacao"><i className="fa fa-plus mr-3"></i> Nova apresentação</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                <div className="modal fade" id="inserirNovaApresentacao" tabindex="-1" role="dialog" aria-labelledby="ModalNovaApresentacao" aria-hidden="true">
+                    <div className="modal-dialog modal-dialog-centered" role="document">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <h5 className="modal-title" id="ModalNovaApresentacao"><i className="fa fa-plus mr-3"></i> Nova apresentação</h5>
+                                <button type="button" className="close" data-dismiss="modal" aria-label="Fechar">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <div class="modal-body">
+                            <div className="modal-body">
                                 <div className="form">
                                     <div className="row">
                                         <div className="col-12 col-md-6 text-left campo-form-modal">
@@ -249,7 +251,7 @@ export default class UserCrud extends Component {
                                             </div>
                                         </div>
 
-                                        <div className="col-12 col-md-8 offset-md-2 text-md-center campo-form-modal">
+                                        <div className="col-12 col-md-8 offset-md-2 text-center campo-form-modal">
                                             <div className="form-group">
                                                 <label>Músicas</label>
                                                 <br></br>
@@ -260,9 +262,9 @@ export default class UserCrud extends Component {
                                 </div>
                             </div>
 
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal" onClick={e => this.clearStateApresentacao(e)}>Cancelar</button>
-                                <button type="button" class="btn btn-primary" onClick={e => this.incluirNovaApresentacao(e)}>Salvar</button>
+                            <div className="modal-footer">
+                                <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={e => this.clearStateApresentacao(e)}>Cancelar</button>
+                                <button type="button" className="btn btn-primary" onClick={e => this.incluirNovaApresentacao(e)}>Salvar</button>
                             </div>
                         </div>
                     </div>
@@ -314,7 +316,7 @@ export default class UserCrud extends Component {
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
-                                    <div class="modal-body">
+                                    <div className="modal-body">
                                         <div className="form">
                                             <div className="row">
                                                 <div className="col-12 col-md-6 text-left campo-form-modal">
@@ -351,7 +353,7 @@ export default class UserCrud extends Component {
                                                     <div className="form-group">
                                                         <label>Músicas</label>
                                                         <br></br>
-                                                        {this.listarMusicas()}
+                                                        {this.listarMusicas(apresentacao.id)}
                                                     </div>
                                                 </div>
                                             </div>
