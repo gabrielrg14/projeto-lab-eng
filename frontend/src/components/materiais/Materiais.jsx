@@ -107,44 +107,6 @@ export default class Materiais extends Component {
         )
     }
 
-    handleChangeCompra(e) {
-        const compra = { ...this.state.compra }
-        compra[e.target.name] = e.target.value
-        this.setState({ compra })
-        console.log(this.state.compra);
-        console.log(e.target.name);
-        console.log(e.target.value);
-    }
-
-    incluirNovaCompra(e) {
-        e.preventDefault();
-        let componenteAtual = this;
-        axios({
-            method: 'post',
-            url: 'http://localhost:5000/api/compraMateriais',
-            data: {
-                admin_id: this.state.compra.admin_id,
-                material_id: this.state.compra.material_id,
-                fornecedor: this.state.compra.fornecedor,
-                valor: this.state.compra.valor,
-                quantidade: this.state.compra.quantidade,
-                data: this.state.compra.data
-            },
-            headers: {
-                'Content-Type': 'application/json; charset=utf-8'
-            }
-        })
-        .then(function(response) {
-            // console.log(response);
-            alert("Compra cadastrada com sucesso!");
-            componenteAtual.reloadPage();
-        })
-        .catch(function(error) {
-            console.log(error);
-            alert("Ocorreu um erro ao cadastrar a compra!");
-        });
-    }
-
     handleEditMaterial(e, dadosMaterial) {
         var material = { ...this.state.material }
         material = dadosMaterial;
@@ -153,9 +115,24 @@ export default class Materiais extends Component {
 
     handleChangeMaterial(e) {
         const material = { ...this.state.material }
-        material[e.target.name] = e.target.value
-        this.setState({ material })
+        material[e.target.name] = e.target.value;
+        this.setState({ material });
         console.log(this.state.material);
+        console.log(e.target.name);
+        console.log(e.target.value);
+    }
+
+    handleEditCompra(e, dadosCompra) {
+        var compra = { ...this.state.compra }
+        compra = dadosCompra;
+        this.setState({ compra });
+    }
+
+    handleChangeCompra(e) {
+        const compra = { ...this.state.compra }
+        compra[e.target.name] = e.target.value
+        this.setState({ compra })
+        console.log(this.state.compra);
         console.log(e.target.name);
         console.log(e.target.value);
     }
@@ -254,6 +231,64 @@ export default class Materiais extends Component {
         })
         .catch(function(error) {
             console.log(error);
+        });
+    }
+
+    incluirNovaCompra(e) {
+        e.preventDefault();
+        let componenteAtual = this;
+        axios({
+            method: 'post',
+            url: 'http://localhost:5000/api/compraMateriais',
+            data: {
+                admin_id: this.state.compra.admin_id,
+                material_id: this.state.compra.material_id,
+                fornecedor: this.state.compra.fornecedor,
+                valor: this.state.compra.valor,
+                quantidade: this.state.compra.quantidade,
+                data: this.state.compra.data
+            },
+            headers: {
+                'Content-Type': 'application/json; charset=utf-8'
+            }
+        })
+        .then(function(response) {
+            // console.log(response);
+            alert("Compra cadastrada com sucesso!");
+            componenteAtual.reloadPage();
+        })
+        .catch(function(error) {
+            console.log(error);
+            alert("Ocorreu um erro ao cadastrar a compra!");
+        });
+    }
+
+    editarCompra(e, idCompra) {
+        e.preventDefault();
+        let componenteAtual = this;
+        axios({
+            method: 'put',
+            url: 'http://localhost:5000/api/compraMateriais/' + idCompra,
+            data: {
+                admin_id: this.state.compra.admin_id,
+                material_id: this.state.compra.material_id,
+                fornecedor: this.state.compra.fornecedor,
+                valor: this.state.compra.valor,
+                quantidade: this.state.compra.quantidade,
+                data: this.state.compra.data
+            },
+            headers: {
+                'Content-Type': 'application/json; charset=utf-8'
+            }
+        })
+        .then(function(response) {
+            console.log(response);
+            alert("Compra editada com sucesso!");
+            componenteAtual.reloadPage();
+        })
+        .catch(function(error) {
+            console.log(error);
+            alert("Ocorreu um erro ao editar a compra!");
         });
     }
 
@@ -429,6 +464,7 @@ export default class Materiais extends Component {
                                             <th>Fornecedor</th>
                                             <th>Valor</th>
                                             <th>Data</th>
+                                            <th>Editar</th>
                                         </tr>
                                     </thead>
                                 
@@ -442,6 +478,94 @@ export default class Materiais extends Component {
                                                     <td>{compra.fornecedor}</td>
                                                     <td>{compra.valor}</td>
                                                     <td>{compra.data}</td>
+                                                    <td>
+                                                        <button className="btn btn-warning" data-toggle="modal" data-target={"#editarCompra-" + compra.id} onClick={e => this.handleEditCompra(e, compra)}>
+                                                            <i className="fa fa-pencil"></i>
+                                                        </button>
+
+                                                        {/* Início Modal Alterar Compra de Material */}
+                                                        <div className="modal fade" style={{zIndex: 1}} id={"editarCompra-" + compra.id} tabIndex="-1" role="dialog" aria-labelledby="ModalAlterarCompra" aria-hidden="true">
+                                                            <div className="modal-dialog modal-dialog-centered" role="document">
+                                                                <div className="modal-content">
+                                                                    <div className="modal-header">
+                                                                        <h5 className="modal-title" id="ModalAlterarCompra"><i className="fa fa-pencil mr-3"></i> Alterar Compra de Material</h5>
+                                                                        <button type="button" className="close" data-toggle="modal" data-target={"#editarCompra-" + compra.id} aria-label="Fechar">
+                                                                            <span aria-hidden="true">&times;</span>
+                                                                        </button>
+                                                                    </div>
+                                                                    <div className="modal-body">
+                                                                        <div className="form">
+                                                                            <div className="row">
+                                                                                <div className="col-12 col-md-6 text-left campo-form-modal">
+                                                                                    <div className="form-group">
+                                                                                        <label>Material</label>
+                                                                                        <select className="form-control" name="material_id" value={this.state.compra.material_id} onChange={e => this.handleChangeCompra(e)}>
+                                                                                            <option value="" selected disabled>Selecione...</option>
+                                                                                            {this.listarMateriais()}
+                                                                                        </select>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div className="col-12 col-md-6 text-left campo-form-modal">
+                                                                                    <div className="form-group">
+                                                                                        <label>Administrador</label>
+                                                                                        <select className="form-control" name="admin_id" value={this.state.compra.admin_id} onChange={e => this.handleChangeCompra(e)}>
+                                                                                            <option value="" selected disabled>Selecione...</option>
+                                                                                            {this.listarAdministradores()}
+                                                                                        </select>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div className="row">
+                                                                                <div className="col-12 col-md-6 text-left campo-form-modal">
+                                                                                    <div className="form-group">
+                                                                                        <label>Quantidade</label>
+                                                                                        <input type="number" className="form-control" name="quantidade" value={this.state.compra.quantidade} onChange={e => this.handleChangeCompra(e)} placeholder="Quantidade do material" />
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div className="col-12 col-md-6 text-left campo-form-modal">
+                                                                                    <div className="form-group">
+                                                                                        <label>Valor da compra</label>
+                                                                                        <input type="text" className="form-control" name="valor" value={this.state.compra.valor} onChange={e => this.handleChangeCompra(e)} placeholder="R$ 0,00" />
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div className="row">
+                                                                                <div className="col-12 col-md-6 text-left campo-form-modal">
+                                                                                    <div className="form-group">
+                                                                                        <label>Fornecedor</label>
+                                                                                        <input type="text" className="form-control" name="fornecedor" value={this.state.compra.fornecedor} onChange={e => this.handleChangeCompra(e)} placeholder="Fornecedor do material" />
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div className="col-12 col-md-6 text-left campo-form-modal">
+                                                                                    <div className="form-group">
+                                                                                        <label>Data da compra</label>
+                                                                                        <input type="date" className="form-control" name="data" value={this.state.compra.data} onChange={e => this.handleChangeCompra(e)} />
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div className="row">
+                                                                                <div className="col-12 col-md-8 text-left">
+                                                                                    <p style={{color: "red", fontSize: 15}}>Todo os campos são OBRIGATÓRIO</p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div className="modal-footer">
+                                                                        <button type="button" className="btn btn-secondary" data-toggle="modal" data-target={"#editarCompra-" + compra.id} onClick={e => this.clearStateCompra(e)}>Cancelar</button>
+                                                                        <button type="button" className="btn btn-primary" onClick={e => this.editarCompra(e, compra.id)}>Salvar</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        {/* Fim Modal Alterar Compra de Material */}
+                                                    </td>
                                                 </tr>
                                             )
                                         })}
@@ -593,6 +717,7 @@ export default class Materiais extends Component {
                                                     <th>Fornecedor</th>
                                                     <th>Valor</th>
                                                     <th>Data</th>
+                                                    <th>Editar</th>
                                                 </tr>
                                             </thead>
                                         
@@ -606,6 +731,94 @@ export default class Materiais extends Component {
                                                             <td>{compra.fornecedor}</td>
                                                             <td>{compra.valor}</td>
                                                             <td>{compra.data}</td>
+                                                            <td>
+                                                                <button className="btn btn-warning" data-toggle="modal" data-target={"#editarMaterialCompra-" + compra.material_id + "-" + compra.id} onClick={e => this.handleEditCompra(e, compra)}>
+                                                                    <i className="fa fa-pencil"></i>
+                                                                </button>
+
+                                                                {/* Início Modal Alterar Compra de um Material Específico */}
+                                                                <div className="modal fade" style={{zIndex: 1}} id={"editarMaterialCompra-" + compra.material_id + "-" + compra.id} tabIndex="-1" role="dialog" aria-labelledby="ModalAlterarMaterialCompra" aria-hidden="true">
+                                                                    <div className="modal-dialog modal-dialog-centered" role="document">
+                                                                        <div className="modal-content">
+                                                                            <div className="modal-header">
+                                                                                <h5 className="modal-title" id="ModalAlterarMaterialCompra"><i className="fa fa-pencil mr-3"></i> Alterar Compra de Material</h5>
+                                                                                <button type="button" className="close" data-toggle="modal" data-target={"#editarMaterialCompra-" + compra.material_id + "-" + compra.id} aria-label="Fechar">
+                                                                                    <span aria-hidden="true">&times;</span>
+                                                                                </button>
+                                                                            </div>
+                                                                            <div className="modal-body">
+                                                                                <div className="form">
+                                                                                    <div className="row">
+                                                                                        <div className="col-12 col-md-6 text-left campo-form-modal">
+                                                                                            <div className="form-group">
+                                                                                                <label>Material</label>
+                                                                                                <select className="form-control" name="material_id" value={this.state.compra.material_id} onChange={e => this.handleChangeCompra(e)}>
+                                                                                                    <option value="" selected disabled>Selecione...</option>
+                                                                                                    {this.listarMateriais()}
+                                                                                                </select>
+                                                                                            </div>
+                                                                                        </div>
+
+                                                                                        <div className="col-12 col-md-6 text-left campo-form-modal">
+                                                                                            <div className="form-group">
+                                                                                                <label>Administrador</label>
+                                                                                                <select className="form-control" name="admin_id" value={this.state.compra.admin_id} onChange={e => this.handleChangeCompra(e)}>
+                                                                                                    <option value="" selected disabled>Selecione...</option>
+                                                                                                    {this.listarAdministradores()}
+                                                                                                </select>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <div className="row">
+                                                                                        <div className="col-12 col-md-6 text-left campo-form-modal">
+                                                                                            <div className="form-group">
+                                                                                                <label>Quantidade</label>
+                                                                                                <input type="number" className="form-control" name="quantidade" value={this.state.compra.quantidade} onChange={e => this.handleChangeCompra(e)} placeholder="Quantidade do material" />
+                                                                                            </div>
+                                                                                        </div>
+
+                                                                                        <div className="col-12 col-md-6 text-left campo-form-modal">
+                                                                                            <div className="form-group">
+                                                                                                <label>Valor da compra</label>
+                                                                                                <input type="text" className="form-control" name="valor" value={this.state.compra.valor} onChange={e => this.handleChangeCompra(e)} placeholder="R$ 0,00" />
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <div className="row">
+                                                                                        <div className="col-12 col-md-6 text-left campo-form-modal">
+                                                                                            <div className="form-group">
+                                                                                                <label>Fornecedor</label>
+                                                                                                <input type="text" className="form-control" name="fornecedor" value={this.state.compra.fornecedor} onChange={e => this.handleChangeCompra(e)} placeholder="Fornecedor do material" />
+                                                                                            </div>
+                                                                                        </div>
+
+                                                                                        <div className="col-12 col-md-6 text-left campo-form-modal">
+                                                                                            <div className="form-group">
+                                                                                                <label>Data da compra</label>
+                                                                                                <input type="date" className="form-control" name="data" value={this.state.compra.data} onChange={e => this.handleChangeCompra(e)} />
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <div className="row">
+                                                                                        <div className="col-12 col-md-8 text-left">
+                                                                                            <p style={{color: "red", fontSize: 15}}>Todo os campos são OBRIGATÓRIO</p>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div className="modal-footer">
+                                                                                <button type="button" className="btn btn-secondary" data-toggle="modal" data-target={"#editarMaterialCompra-" + compra.material_id + "-" + compra.id} onClick={e => this.clearStateCompra(e)}>Cancelar</button>
+                                                                                <button type="button" className="btn btn-primary" onClick={e => this.editarCompra(e, compra.id)}>Salvar</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                {/* Fim Modal Alterar Compra de um Material Específico */}
+                                                            </td>
                                                         </tr>
                                                     )
                                                 })}

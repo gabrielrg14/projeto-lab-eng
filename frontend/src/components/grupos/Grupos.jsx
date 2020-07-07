@@ -338,7 +338,7 @@ export default class Grupos extends Component {
 
                         {/* Início Modal listar Membros do Grupo */}
                         <div className="modal fade" id={"listarMembrosGrupo-" + grupo.id} tabIndex="-1" role="dialog" aria-labelledby="ModalListarMembros" aria-hidden="true">
-                            <div className="modal-dialog modal-dialog-centered" role="document">
+                            <div className="modal-dialog modal-lg modal-dialog-centered" role="document">
                                 <div className="modal-content">
                                     <div className="modal-header">
                                         <h5 className="modal-title" id="ModalListarMembros"><i className="fa fa-users"></i> Lista de Membros</h5>
@@ -363,9 +363,32 @@ export default class Grupos extends Component {
                                                             <td>{membro.nome}</td>
                                                             <td>{membro.status}</td>
                                                             <td>
-                                                                <button type="button" className="btn btn-danger ml-1" onClick={e => this.excluirMembroGrupo(e, grupo.id, membro.id)}>
+                                                                <button type="button" className="btn btn-danger ml-1" data-toggle="modal" data-target={"#excluirMembroGrupo-" + membro.id + "-" + grupo.id}>
                                                                     <i className="fa fa-trash"></i>
                                                                 </button>
+
+                                                                {/* Início Modal excluir Membro do Grupo */}
+                                                                <div className="modal fade" style={{zIndex: 1}} id={"excluirMembroGrupo-" + membro.id + "-" + grupo.id} tabIndex="-1" role="dialog" aria-labelledby="ModalExcluirMembroGrupo" aria-hidden="true">
+                                                                    <div className="modal-dialog modal-dialog-centered" role="document">
+                                                                        <div className="modal-content">
+                                                                            <div className="modal-header">
+                                                                                <h5 className="modal-title" id="ModalExcluirMembroGrupo"><i className="fa fa-trash"></i> Excluir Membro do Grupo</h5>
+                                                                                <button type="button" className="close" data-toggle="modal" data-target={"#excluirMembroGrupo-" + membro.id + "-" + grupo.id} aria-label="Fechar">
+                                                                                    <span aria-hidden="true">&times;</span>
+                                                                                </button>
+                                                                            </div>
+                                                                            <div className="modal-body">
+                                                                                Tem certeza que deseja excluir o membro {membro.nome} do grupo {grupo.nome}?
+                                                                            </div>
+
+                                                                            <div className="modal-footer">
+                                                                                <button type="button" className="btn btn-secondary" data-toggle="modal" data-target={"#excluirMembroGrupo-" + membro.id + "-" + grupo.id}>Cancelar</button>
+                                                                                <button type="button" className="btn btn-danger" onClick={e => this.excluirMembroGrupo(e, grupo.id, membro.id)}>Sim</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                {/* Fim Modal excluir Membro do Grupo */}
                                                             </td>
                                                         </tr>
                                                     )
