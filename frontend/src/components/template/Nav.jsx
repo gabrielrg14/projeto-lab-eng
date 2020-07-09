@@ -34,20 +34,21 @@ export default class Nav extends Component {
         return (
             <aside className="menu-area">
                 <nav className="menu">
-                    <a type="button" className="text-sm-center text-md-left" onClick={this.dropdownMembros}>
-                        <i className="fa fa-user-circle-o"></i> Membros <i className="fa fa-caret-down" id="seta-dropdown-membros"></i>
-                    </a>
+                    <div className="dropdown">
+                        <a type="button" className="text-sm-center text-md-left" id="dropMembros" onClick={this.dropdownMembros}>
+                            <i className="fa fa-user-circle-o"></i>Membros<i className="fa fa-caret-down" id="seta-dropdown-membros"></i>
+                        </a>
+                    
+                        <div className="drop-item" id="dropdown-membros">
+                            <Link to="/membros/ativos">
+                                <i className="fa fa-user"></i> Ativos
+                            </Link>
 
-                    <div className="dropdown" id="dropdown-membros">
-                        <Link to="/membros/ativos">
-                            <i className="fa fa-user"></i> Ativos
-                        </Link>
-
-                        <Link to="/membros/arquivados">
-                            <i className="fa fa-user-times"></i> Arquivados
-                        </Link>
+                            <Link to="/membros/arquivados">
+                                <i className="fa fa-user-times"></i> Arquivados
+                            </Link>
+                        </div>
                     </div>
-
 
                     <Link className="text-sm-center text-md-left" to="/administradores">
                         <i className="fa fa-suitcase"></i> Administradores

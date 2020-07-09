@@ -98,8 +98,7 @@ export default class UserCrud extends Component {
             (!this.state.musica.tempo) || (!this.state.musica.qtdInstrumentos) ||
             (!this.state.musica.grupoId)) {
             alert("Campos obrigatórios não preenchidos.");
-        }
-        else{
+        }else{
             axios({
                 method: 'post',
                 url: 'http://localhost:5000/api/musicas',
@@ -236,6 +235,11 @@ export default class UserCrud extends Component {
                                                 <label>Descrição</label>
                                                 <textarea type="textarea" className="form-control" name="descricao" onChange={e => this.handleChangeMusica(e)} placeholder="Descrição da música"></textarea>
                                             </div>
+                                        </div>
+                                    </div>
+                                    <div className="row">
+                                        <div className="col-12 col-md-8 text-left">
+                                            <p style={{color: "red", fontSize: 15}}>Todos os campos são OBRIGATÓRIOS</p>
                                         </div>
                                     </div>
                                 </div>

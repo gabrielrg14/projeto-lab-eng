@@ -3,6 +3,7 @@ aside.menu-area {
     box-shadow: 
         2px 0 10px 0 rgba(0, 0, 0, 0.12),
         2px 0 15px 0 rgba(0, 0, 0, 0.09);
+    width: 100%;
 }
 
 .menu a {
@@ -11,6 +12,7 @@ aside.menu-area {
     color: #FFF;
     font-weight: 300;
     padding: 15px;
+    border-radius: 5px;
 }
 
 .menu a:hover {
@@ -25,14 +27,40 @@ aside.menu-area {
     }
 
     .menu a {
+        height: 100%;
+    }
+
+    .menu i {
         display: inline;
-        padding: 10px;
-        margin: 0px;
+        padding: 0px;
+        margin: 0px; 
     }
 
     .menu {
+        display: flex;
         height: 100%;
+        width: 100%;
         justify-content: space-around;
+    }
+    
+    .dropdown:hover .drop-item a {
+        display: block;
+        background-color: #1A2F3A;
+        border-radius: 7px;
+    }
+
+    .dropdown:hover{
+        background-color: #1A2F3A;
+        border-radius: 7px;
+    }
+
+    .drop-item a{
+        display: none;
+    }
+
+    #seta-dropdown-membros {
+        display: flex;
+        flex-direction: column;
     }
 }
 
@@ -46,14 +74,15 @@ aside.menu-area {
     margin-right: 10px;
 }
 
-.menu .dropdown {
+.menu .drop-item {
     display: none;
+    
 }
 
-.menu .dropdown.open {
+.menu .drop-item.open {
     display: block;
 }
 
-.menu .dropdown a {
+.menu .drop-item a {
     padding-left: 45px;
 }

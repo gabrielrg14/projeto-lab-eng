@@ -249,12 +249,17 @@ export default class UserCrud extends Component {
                                             </div>
                                         </div>
 
-                                        <div className="col-12 col-md-8 offset-md-2 text-md-center campo-form-modal">
+                                        <div className="col-12 col-md-8 offset-md-2 text-left text-md-center campo-form-modal">
                                             <div className="form-group">
                                                 <label>Músicas</label>
                                                 <br></br>
                                                 {this.listarMusicas()}
                                             </div>
+                                        </div>
+                                    </div>
+                                    <div className="row">
+                                        <div className="col-12 col-md-8 text-left">
+                                            <p style={{color: "red", fontSize: 15}}>Todos os campos são OBRIGATÓRIOS</p>
                                         </div>
                                     </div>
                                 </div>

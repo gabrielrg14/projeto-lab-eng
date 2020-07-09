@@ -301,7 +301,7 @@ export default class Materiais extends Component {
                                     </div>
                                     <div className="row">
                                         <div className="col-12 col-md-8 text-left">
-                                            <p style={{color: "red", fontSize: 15}}>Todo os campos são OBRIGATÓRIO</p>
+                                            <p style={{color: "red", fontSize: 15}}>Todos os campos são OBRIGATÓRIOS</p>
                                         </div>
                                     </div>
                                 </div>

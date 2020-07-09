@@ -299,7 +299,7 @@ export default class Ativos extends Component {
 
                                     <div className="row">
                                         <div className="col-12 col-md-8 text-left">
-                                            <p style={{color: "red", fontSize: 15}}>(*)Campo OBRIGATÓRIO</p>
+                                            <p style={{color: "red", fontSize: 15}}>(*)Campo OBRIGATÓRIOS</p>
                                         </div>
                                     </div>
                                 </div>
