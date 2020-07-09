@@ -11,22 +11,7 @@ const findMusicasOfApresentacoes = apresentacoes => {
       where: { apresentacao_id: apresentacao.dataValues.id },
     });
 
-    if (musicas.length > 0) {
-      const findMusicas = musicas.map(async musica => {
-        const { musica_id } = musica;
-
-        const dadosMusica = await Musica.findOne({
-          where: { id: musica_id },
-        });
-
-        return dadosMusica.nome;
-      });
-
-      return Promise.all(findMusicas).then(responses => ({
-        ...apresentacao.dataValues,
-        musicas: responses,
-      }));
-    }
+    musicas = musicas.map(musica => musica.musica_id);
 
     return { ...apresentacao.dataValues, musicas };
   });
